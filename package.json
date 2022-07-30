@@ -14,10 +14,12 @@
     "@mui/material": "^5.9.2",
     "@tanstack/react-query": "^4.0.10",
     "axios": "^0.27.2",
+    "emotion-reset": "^3.0.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.34.0",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "zustand": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.6.2",
