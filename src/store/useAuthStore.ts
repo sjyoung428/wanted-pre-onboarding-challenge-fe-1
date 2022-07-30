@@ -10,9 +10,9 @@ interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  //
+  // state
   token: getLocalStorage<string>("token") || "",
-  //
+  // action
   setToken: (keyname, authToken) => {
     set(() => ({ token: authToken }));
     setLocalStorage(keyname, authToken);

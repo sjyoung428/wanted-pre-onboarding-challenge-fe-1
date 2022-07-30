@@ -4,13 +4,7 @@ import { useForm } from "react-hook-form";
 import AuthAPI from "@/api/auth";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/useAuthStore";
-
-export interface EnterFormState {
-  email: string;
-  password: string;
-}
-
-type FormType = "login" | "register";
+import { EnterFormState, FormType } from "./types";
 
 const Auth = () => {
   const [formType, setFormType] = useState<FormType>("login");

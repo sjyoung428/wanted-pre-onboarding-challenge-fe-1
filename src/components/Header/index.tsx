@@ -1,17 +1,7 @@
 import { useAuthStore } from "@/store/useAuthStore";
-import { removeLocalStorage } from "@/utils/removeLocalStorage";
-import styled from "@emotion/styled";
 import { Button } from "@mui/material";
-import { useEffect } from "react";
-import { Link, useMatch, useParams } from "react-router-dom";
-
-const Navigation = styled.div`
-  width: 100%;
-  height: 5rem;
-  position: fixed;
-  top: 0;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
-`;
+import { Link, useMatch } from "react-router-dom";
+import { S } from "./styled";
 
 const Header = () => {
   const { token: authToken, removeToken } = useAuthStore();
@@ -24,7 +14,7 @@ const Header = () => {
 
   return (
     <>
-      <Navigation>
+      <S.Navigation>
         {authToken && (
           <Button variant="text" onClick={onLogout}>
             로그아웃
@@ -41,7 +31,7 @@ const Header = () => {
             <Link to="/">홈</Link>
           </Button>
         )}
-      </Navigation>
+      </S.Navigation>
     </>
   );
 };
