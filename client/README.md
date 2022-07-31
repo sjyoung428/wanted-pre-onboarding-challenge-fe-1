@@ -1,6 +1,6 @@
 # To Do
 
-- [ ] /auth -> validate 메세지 보이기
+- [x] /auth -> validate 메세지 보이기
 
 - [ ] / -> ToDoList 만들기
 
@@ -11,3 +11,5 @@
 - [ ] README 작성
 
 - [ ] 주석 달기
+
+- [ ] 폴더 구조 계속 생각해보기(refactoring 계속 하기)

@@ -31,16 +31,18 @@ const Auth = () => {
         setToken("token", loginResponse.token);
         navigate("/");
       } catch (error: unknown) {
-        console.log(error);
-        alert("로그인 정보가 올바르지 않습니다");
+        toast.error("로그인 정보가 올바르지 않습니다", {
+          autoClose: 3000,
+          position: toast.POSITION.TOP_RIGHT,
+          draggable: true,
+        });
       }
     }
 
     // 회원가입
     if (formType === "register") {
-      const signUpResponse = await AuthAPI.signUp({ email, password });
+      await AuthAPI.signUp({ email, password });
       setFormType("login");
-      console.log(signUpResponse);
     }
   };
   // invalid
