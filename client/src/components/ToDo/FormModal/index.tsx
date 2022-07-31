@@ -1,22 +1,38 @@
+import clientApi from "@/api/axios";
 import ToDoAPI from "@/api/toDo";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useModalStore } from "@/store/useModalStore";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "react-query";
 
 export interface ModalFormState {
   title: string;
   content: string;
 }
 
+interface ToDoMutationState extends ModalFormState {
+  authToken: string;
+}
+
 const ToDoModalForm = () => {
+  const queryClient = useQueryClient();
   const { open, closeModal } = useModalStore();
   const { register, handleSubmit } = useForm<ModalFormState>();
   const authToken = useAuthStore((state) => state.token);
 
+  const { mutate } = useMutation(
+    ({ title, content, authToken }: ToDoMutationState) =>
+      ToDoAPI.create({ title, content }, authToken),
+    {
+      onSuccess: async () => {
+        await queryClient.refetchQueries(["toDoList", authToken]);
+      },
+    }
+  );
+
   const onValid = async ({ title, content }: ModalFormState) => {
-    const data = await ToDoAPI.create({ title, content }, authToken);
-    console.log(data);
+    mutate({ title, content, authToken });
   };
 
   return (

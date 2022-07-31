@@ -1,4 +1,5 @@
 import { ModalFormState } from "@/components/ToDo/FormModal";
+import { AxiosResponse } from "axios";
 import clientApi from "./axios";
 
 type ToDoData = {
@@ -10,64 +11,51 @@ type ToDoData = {
 };
 
 const ToDoAPI = {
-  create: async (body: ModalFormState, token: string) => {
-    const response = await clientApi.post<Promise<{ data: ToDoData }>>(
-      "/todos",
-      body,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+  create: async (
+    body: ModalFormState,
+    token: string
+  ): Promise<{ data: ModalFormState }> => {
+    const { data } = await clientApi.post("/todos", body, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return data;
+  },
+
+  getAll: async (token: string): Promise<{ data: ToDoData[] }> => {
+    const response = await clientApi.get<{ data: ToDoData[] }>("/todos", {
+      headers: {
+        Authorization: token,
+      },
+    });
     return response.data;
   },
 
-  getAll: async (token: string) => {
-    const response = await clientApi.get<Promise<{ data: ToDoData[] }>>(
-      "/todos",
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+  getById: async (id: string, token: string): Promise<{ data: ToDoData }> => {
+    const response = await clientApi.get<{ data: ToDoData }>(`/todos/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
     return response.data;
   },
 
-  getById: async (id: string, token: string) => {
-    const response = await clientApi.get<Promise<{ data: ToDoData }>>(
-      `/todos/${id}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+  update: async (id: string, token: string): Promise<{ data: ToDoData }> => {
+    const response = await clientApi.put<{ data: ToDoData }>(`/todos/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
     return response.data;
   },
 
-  update: async (id: string, token: string) => {
-    const response = await clientApi.put<Promise<{ data: ToDoData }>>(
-      `/todos/${id}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
-    return response.data;
-  },
-
-  delete: async (id: string, token: string) => {
-    const response = await clientApi.delete<Promise<{ data: null }>>(
-      `/todos/${id}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+  delete: async (id: string, token: string): Promise<{ data: null }> => {
+    const response = await clientApi.delete<{ data: null }>(`/todos/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
     return response.data;
   },
 };
