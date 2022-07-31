@@ -21,7 +21,6 @@ const ToDoList = () => {
       },
     }
   );
-  console.log(data);
 
   return (
     <>

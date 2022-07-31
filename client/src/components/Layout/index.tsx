@@ -23,6 +23,7 @@ const Layout = ({ children }: LayoutProps) => {
         draggable: true,
       });
     }
+    console.log(authToken);
   }, [authToken]);
 
   return (
