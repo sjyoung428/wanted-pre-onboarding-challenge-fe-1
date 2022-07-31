@@ -60,7 +60,7 @@ const ToDoAPI = {
   },
 
   delete: async (id: string, token: string) => {
-    const response = await clientApi.get<Promise<{ data: null }>>(
+    const response = await clientApi.delete<Promise<{ data: null }>>(
       `/todos/${id}`,
       {
         headers: {
