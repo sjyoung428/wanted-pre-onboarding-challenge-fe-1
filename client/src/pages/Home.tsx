@@ -1,5 +1,11 @@
+import ToDoList from "@/components/ToDoList";
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <ToDoList />
+    </>
+  );
 };
 
 export default Home;
