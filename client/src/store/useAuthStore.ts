@@ -5,11 +5,14 @@ import create from "zustand";
 
 interface AuthState {
   token: string;
+}
+
+interface AuthAction {
   setToken: (keyname: string, authToken: string) => void;
   removeToken: (keyname: string) => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState & AuthAction>((set) => ({
   // state
   token: getLocalStorage<string>("token") || "",
   // action
