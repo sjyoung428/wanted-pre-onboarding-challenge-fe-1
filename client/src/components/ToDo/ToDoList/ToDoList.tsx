@@ -2,15 +2,8 @@ import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 import UpdatedAt from "@/components/UpdatedAt/UpdatedAt";
 import useGetToDoList from "@/hooks/query/useGetToDoList";
 import { useAuthStore } from "@/store/useAuthStore";
-import {
-  Divider,
-  IconButton,
-  ListItem,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Divider, IconButton, Stack, Typography } from "@mui/material";
 import { Link, Outlet } from "react-router-dom";
-import { toast } from "react-toastify";
 import FloatingButton from "../../FloatingButton/FloatingButton";
 import ToDoModalForm from "../Modal/FormModal";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -19,6 +12,7 @@ import { useQueryClient } from "react-query";
 import DeleteModal from "../Modal/DeleteModal";
 import { useDeleteModalStore } from "@/store/useDeleteModalStore";
 import { useEffect, useState } from "react";
+import useToastMessage from "@/hooks/common/useToastMessage";
 
 const ToDoList = () => {
   const [deleteState, setDeleteState] = useState(false); // 투두를 지우기 위한 state
@@ -30,11 +24,7 @@ const ToDoList = () => {
   // 모든 투두 리스트 가져오기
   const { data, isLoading } = useGetToDoList(authToken, {
     onError: (error) => {
-      toast.error("로그인하고 이용해 주세요.", {
-        autoClose: 3000,
-        position: toast.POSITION.TOP_RIGHT,
-        draggable: true,
-      });
+      useToastMessage("로그인하고 이용해 주세요.", "error");
     },
   });
 

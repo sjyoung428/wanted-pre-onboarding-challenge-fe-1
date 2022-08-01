@@ -7,6 +7,7 @@ import { useAuthStore } from "@/store/useAuthStore";
 import { EnterFormState, FormType } from "./types";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useToastMessage from "@/hooks/common/useToastMessage";
 
 const Auth = () => {
   const [formType, setFormType] = useState<FormType>("login");
@@ -31,11 +32,7 @@ const Auth = () => {
         setToken("token", loginResponse.token);
         navigate("/");
       } catch (error: unknown) {
-        toast.error("로그인 정보가 올바르지 않습니다", {
-          autoClose: 3000,
-          position: toast.POSITION.TOP_RIGHT,
-          draggable: true,
-        });
+        useToastMessage("로그인 정보가 올바르지 않습니다", "error");
       }
     }
 
@@ -49,20 +46,12 @@ const Auth = () => {
   const onInValid = () => {
     const { email, password } = errors;
     // email 에러 메세지
-    if (email) {
-      toast.error(email.message, {
-        autoClose: 3000,
-        position: toast.POSITION.TOP_RIGHT,
-        draggable: true,
-      });
+    if (email && email.message) {
+      useToastMessage(email.message, "error");
     }
     // password 에러 메세지
-    if (password) {
-      toast.error(password.message, {
-        autoClose: 3000,
-        position: toast.POSITION.TOP_RIGHT,
-        draggable: true,
-      });
+    if (password && password.message) {
+      useToastMessage(password.message, "error");
     }
   };
 
