@@ -5,13 +5,13 @@ import { useAuthStore } from "@/store/useAuthStore";
 import { useModalStore } from "@/store/useModalStore";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "react-query";
-import { ModalFormState, ToDoMutationState } from "./types";
+import { useQueryClient } from "react-query";
+import { ModalFormState } from "./types";
 
 const ToDoModalForm = () => {
   const queryClient = useQueryClient();
   const { open, closeModal } = useModalStore();
-  const { register, handleSubmit } = useForm<ModalFormState>();
+  const { register, handleSubmit, reset } = useForm<ModalFormState>();
   const authToken = useAuthStore((state) => state.token);
   const { mutate } = useCreateToDo({
     onSuccess: async () => {
@@ -21,6 +21,8 @@ const ToDoModalForm = () => {
 
   const onValid = async ({ title, content }: ModalFormState) => {
     mutate({ title, content, authToken });
+    reset();
+    closeModal();
   };
 
   return (

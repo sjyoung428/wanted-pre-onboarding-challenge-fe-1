@@ -1,4 +1,6 @@
 import ToDoAPI from "@/api/toDo";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
+import UpdatedAt from "@/components/UpdatedAt/UpdatedAt";
 import useGetToDoList from "@/hooks/query/useGetToDoList";
 import { useAuthStore } from "@/store/useAuthStore";
 import { Divider, List, ListItem, Typography } from "@mui/material";
@@ -19,7 +21,6 @@ const ToDoList = () => {
       });
     },
   });
-
   return (
     <>
       <List
@@ -30,18 +31,21 @@ const ToDoList = () => {
           overflow: "scroll",
         }}
       >
-        {isLoading
-          ? "Loading..."
-          : data?.data.map((toDo) => (
-              <div key={toDo.id}>
-                <ListItem>
-                  <Link to={`/todos/${toDo.id}`}>
-                    <Typography>{toDo.title}</Typography>
-                  </Link>
-                </ListItem>
-                <Divider />
-              </div>
-            ))}
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          data?.data.map((toDo) => (
+            <div key={toDo.id}>
+              <ListItem>
+                <Link to={`/todos/${toDo.id}`}>
+                  <Typography>{toDo.title}</Typography>
+                  <UpdatedAt updatedAt={toDo.updatedAt} />
+                </Link>
+              </ListItem>
+              <Divider />
+            </div>
+          ))
+        )}
       </List>
       <ToDoModalForm />
       <FloatingButton />

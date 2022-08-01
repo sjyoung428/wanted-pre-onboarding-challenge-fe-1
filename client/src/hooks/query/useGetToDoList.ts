@@ -12,6 +12,6 @@ const useGetToDoList = (
   );
 };
 
-useGetToDoList.getKey = (authToken: string) => ["toDoList", authToken]; // authTokent가져오기
+useGetToDoList.getKey = (authToken: string) => ["toDoList", authToken]; // authToken 가져오기
 
 export default useGetToDoList;
