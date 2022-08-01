@@ -7,9 +7,10 @@ const Router = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />}>
+          <Route path="/todos/:id" element={<ToDoDetail />} />
+        </Route>
         <Route path="/auth" element={<Auth />} />
-        <Route path="/todos/:id" element={<ToDoDetail />} />
       </Routes>
     </>
   );

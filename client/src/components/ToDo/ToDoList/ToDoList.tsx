@@ -5,7 +5,7 @@ import useGetToDoList from "@/hooks/query/useGetToDoList";
 import { useAuthStore } from "@/store/useAuthStore";
 import { Divider, List, ListItem, Typography } from "@mui/material";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { toast } from "react-toastify";
 import FloatingButton from "../../FloatingButton/FloatingButton";
 import ToDoModalForm from "../FormModal/FormModal";
@@ -40,6 +40,7 @@ const ToDoList = () => {
                 <Link to={`/todos/${toDo.id}`}>
                   <Typography>{toDo.title}</Typography>
                   <UpdatedAt updatedAt={toDo.updatedAt} />
+                  <Outlet context={{ id: toDo.id, content: toDo.content }} />
                 </Link>
               </ListItem>
               <Divider />
