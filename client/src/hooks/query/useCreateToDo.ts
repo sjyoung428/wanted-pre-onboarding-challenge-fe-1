@@ -1,19 +1,11 @@
-import clientApi from "@/api/axios";
 import ToDoAPI, { ToDoData } from "@/api/toDo";
-import {
-  ModalFormState,
-  ToDoMutationState,
-} from "@/components/ToDo/FormModal/types";
+import { ToDoMutationState } from "@/components/ToDo/FormModal/types";
 import { useMutation, UseMutationOptions } from "react-query";
 
 const useCreateToDo = (
-  options?: UseMutationOptions<
-    { data: ModalFormState },
-    Error,
-    ToDoMutationState
-  >
+  options?: UseMutationOptions<{ data: ToDoData }, Error, ToDoMutationState>
 ) => {
-  return useMutation<{ data: ModalFormState }, Error, ToDoMutationState>(
+  return useMutation<{ data: ToDoData }, Error, ToDoMutationState>(
     ToDoAPI.create,
     options
   );

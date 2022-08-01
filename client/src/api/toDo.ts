@@ -9,6 +9,11 @@ export type ToDoData = {
   updatedAt: string;
 };
 
+export interface IdAndToken {
+  id: string;
+  authToken: string;
+}
+
 const ToDoAPI = {
   create: async ({
     title,
@@ -36,28 +41,34 @@ const ToDoAPI = {
     return response.data;
   },
 
-  getById: async (id: string, token: string): Promise<{ data: ToDoData }> => {
+  getById: async ({
+    id,
+    authToken,
+  }: IdAndToken): Promise<{ data: ToDoData }> => {
     const response = await clientApi.get<{ data: ToDoData }>(`/todos/${id}`, {
       headers: {
-        Authorization: token,
+        Authorization: authToken,
       },
     });
     return response.data;
   },
 
-  update: async (id: string, token: string): Promise<{ data: ToDoData }> => {
+  update: async ({
+    id,
+    authToken,
+  }: IdAndToken): Promise<{ data: ToDoData }> => {
     const response = await clientApi.put<{ data: ToDoData }>(`/todos/${id}`, {
       headers: {
-        Authorization: token,
+        Authorization: authToken,
       },
     });
     return response.data;
   },
 
-  delete: async (id: string, token: string): Promise<{ data: null }> => {
+  delete: async ({ id, authToken }: IdAndToken): Promise<{ data: null }> => {
     const response = await clientApi.delete<{ data: null }>(`/todos/${id}`, {
       headers: {
-        Authorization: token,
+        Authorization: authToken,
       },
     });
     return response.data;

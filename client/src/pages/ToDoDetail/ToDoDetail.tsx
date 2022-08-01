@@ -1,15 +1,19 @@
 import { ToDoData } from "@/api/toDo";
+import { useEffect, useState } from "react";
 import { useLocation, useOutletContext } from "react-router-dom";
 
 const ToDoDetail = () => {
-  const { id, content } = useOutletContext<ToDoData>();
+  const [checkId, setCheckId] = useState("");
+  const { id, content } = useOutletContext<Pick<ToDoData, "id" | "content">>();
   const { pathname } = useLocation();
-  console.log(id);
-  console.log(pathname.split("/")[2]);
+
+  useEffect(() => {
+    setCheckId(pathname.split("/")[2]);
+  }, [pathname]);
 
   return (
     <>
-      {id === pathname.split("/")[2] && (
+      {id === checkId && (
         <>
           <span>{content}</span>
         </>
