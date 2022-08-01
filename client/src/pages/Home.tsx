@@ -1,4 +1,4 @@
-import ToDoList from "@/components/ToDo/ToDoList";
+import ToDoList from "@/components/ToDo/ToDoList/ToDoList";
 
 const Home = () => {
   return (

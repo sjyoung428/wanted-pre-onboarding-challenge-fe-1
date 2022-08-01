@@ -1,7 +1,7 @@
 import { useAuthStore } from "@/store/useAuthStore";
 import { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import Header from "../Header";
+import Header from "../Header/Header";
 import { S } from "./styled";
 import { LayoutProps } from "./types";
 

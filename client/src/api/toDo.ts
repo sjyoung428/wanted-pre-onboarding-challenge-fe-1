@@ -1,8 +1,7 @@
-import { ModalFormState } from "@/components/ToDo/FormModal";
-import { AxiosResponse } from "axios";
+import { ToDoMutationState } from "@/components/ToDo/FormModal/types";
 import clientApi from "./axios";
 
-type ToDoData = {
+export type ToDoData = {
   title: string;
   content: string;
   id: string;
@@ -11,15 +10,20 @@ type ToDoData = {
 };
 
 const ToDoAPI = {
-  create: async (
-    body: ModalFormState,
-    token: string
-  ): Promise<{ data: ModalFormState }> => {
-    const { data } = await clientApi.post("/todos", body, {
-      headers: {
-        Authorization: token,
-      },
-    });
+  create: async ({
+    title,
+    content,
+    authToken,
+  }: ToDoMutationState): Promise<{ data: ToDoData }> => {
+    const { data } = await clientApi.post(
+      "/todos",
+      { title, content },
+      {
+        headers: {
+          Authorization: authToken,
+        },
+      }
+    );
     return data;
   },
 
