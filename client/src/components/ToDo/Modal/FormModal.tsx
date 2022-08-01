@@ -2,7 +2,7 @@ import ToDoAPI from "@/api/toDo";
 import useCreateToDo from "@/hooks/query/useCreateToDo";
 import useGetToDoList from "@/hooks/query/useGetToDoList";
 import { useAuthStore } from "@/store/useAuthStore";
-import { useModalStore } from "@/store/useModalStore";
+import { useEnterModalStore } from "@/store/useEnterModalStore";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
@@ -10,7 +10,7 @@ import { ModalFormState } from "./types";
 
 const ToDoModalForm = () => {
   const queryClient = useQueryClient();
-  const { open, closeModal } = useModalStore();
+  const { open, closeModal } = useEnterModalStore();
   const { register, handleSubmit, reset } = useForm<ModalFormState>();
   const authToken = useAuthStore((state) => state.token);
   const { mutate } = useCreateToDo({

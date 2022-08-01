@@ -1,4 +1,4 @@
-import { ToDoMutationState } from "@/components/ToDo/FormModal/types";
+import { ToDoMutationState } from "@/components/ToDo/Modal/types";
 import clientApi from "./axios";
 
 export type ToDoData = {

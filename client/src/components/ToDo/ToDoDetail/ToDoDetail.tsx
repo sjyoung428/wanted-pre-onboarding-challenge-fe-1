@@ -1,4 +1,5 @@
 import { ToDoData } from "@/api/toDo";
+import { Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useLocation, useOutletContext } from "react-router-dom";
 
@@ -15,7 +16,9 @@ const ToDoDetail = () => {
     <>
       {id === checkId && (
         <>
-          <span>{content}</span>
+          <Stack>
+            <Typography>{content}</Typography>
+          </Stack>
         </>
       )}
     </>

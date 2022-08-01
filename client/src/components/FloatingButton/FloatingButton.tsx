@@ -1,9 +1,9 @@
 import { Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { useModalStore } from "@/store/useModalStore";
+import { useEnterModalStore } from "@/store/useEnterModalStore";
 
 const FloatingButton = () => {
-  const openModal = useModalStore((state) => state.openModal);
+  const openModal = useEnterModalStore((state) => state.openModal);
   return (
     <Fab
       onClick={openModal}

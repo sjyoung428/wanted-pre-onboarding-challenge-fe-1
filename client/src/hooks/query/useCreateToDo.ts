@@ -1,5 +1,5 @@
 import ToDoAPI, { ToDoData } from "@/api/toDo";
-import { ToDoMutationState } from "@/components/ToDo/FormModal/types";
+import { ToDoMutationState } from "@/components/ToDo/Modal/types";
 import { useMutation, UseMutationOptions } from "react-query";
 
 const useCreateToDo = (
