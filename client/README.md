@@ -2,9 +2,9 @@
 
 - [x] /auth -> validate 메세지 보이기
 
-- [ ] / -> ToDoList 만들기
+- [x] / -> ToDoList 만들기
 
-- [ ] /todos/:id -> todo 디테일 페이지 만들기
+- [x] /todos/:id -> todo 디테일 페이지 만들기 ==> Home에서 toDo title 클릭시 content 내용 나타나게 구현
 
 - [ ] mui로 전체적인 css만들기
 
