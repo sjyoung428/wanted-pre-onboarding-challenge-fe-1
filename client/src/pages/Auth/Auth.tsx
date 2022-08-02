@@ -5,7 +5,7 @@ import AuthAPI from "@/api/auth";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/useAuthStore";
 import { EnterFormState, FormType } from "./types";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useToastMessage from "@/hooks/common/useToastMessage";
 
