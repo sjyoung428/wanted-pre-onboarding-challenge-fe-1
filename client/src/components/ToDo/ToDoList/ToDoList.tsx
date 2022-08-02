@@ -16,6 +16,7 @@ import useToastMessage from "@/hooks/common/useToastMessage";
 import { useUpdateToDoStore } from "@/store/useUpdateToDoStore";
 import useCheckIdByURL from "@/hooks/common/useCheckIdByURL";
 import { useFormModalStore } from "@/store/useFormModalStore";
+import { TOAST_MESSAGE } from "@/utils/toastMessage";
 
 const ToDoList = () => {
   const [deleteState, setDeleteState] = useState(false); // 투두를 지우기 위한 state
@@ -33,7 +34,7 @@ const ToDoList = () => {
   // 모든 투두 리스트 가져오기
   const { data, isLoading } = useGetToDoList(authToken, {
     onError: (error) => {
-      useToastMessage("로그인하고 이용해 주세요.", "error");
+      useToastMessage(TOAST_MESSAGE.AUTH.ONLY_LOGIN, "error");
     },
   });
 
@@ -41,7 +42,7 @@ const ToDoList = () => {
   const { mutate } = useDeleteToDo({
     onSuccess: async () => {
       await queryClient.refetchQueries(useGetToDoList.getKey(authToken)),
-        useToastMessage("성공적으로 삭제했습니다.", "success");
+        useToastMessage(TOAST_MESSAGE.TODO.DELETE_SUCCESS, "success");
     },
   });
 

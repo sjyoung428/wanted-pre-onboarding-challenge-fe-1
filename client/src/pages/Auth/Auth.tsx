@@ -8,6 +8,7 @@ import { EnterFormState, FormType } from "./types";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useToastMessage from "@/hooks/common/useToastMessage";
+import { TOAST_MESSAGE } from "@/utils/toastMessage";
 
 const Auth = () => {
   const [formType, setFormType] = useState<FormType>("login");
@@ -32,7 +33,7 @@ const Auth = () => {
         setToken("token", loginResponse.token);
         navigate("/");
       } catch (error: unknown) {
-        useToastMessage("로그인 정보가 올바르지 않습니다", "error");
+        useToastMessage(TOAST_MESSAGE.AUTH.INVALID_LOGIN, "error");
       }
     }
 
@@ -73,7 +74,7 @@ const Auth = () => {
             required: true,
             validate: (email) =>
               (email.includes("@") && email.includes(".")) ||
-              "이메일 형식은 @ 과 .를 포함해야 합니다.", // 이메일 최소 조건
+              TOAST_MESSAGE.AUTH.INVALID_EMAIL, // 이메일 최소 조건
           })}
           type="email"
           id="outlined-basic"
@@ -85,7 +86,7 @@ const Auth = () => {
             required: true,
             minLength: {
               value: 8,
-              message: "비밀번호는 8자리 이상 입력해야 합니다.",
+              message: TOAST_MESSAGE.AUTH.INVALID_PASSWORD,
             }, // 비밀번호 조건
           })}
           id="outlined-password-input"

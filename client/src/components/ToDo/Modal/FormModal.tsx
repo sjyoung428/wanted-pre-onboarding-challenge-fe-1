@@ -18,6 +18,7 @@ import { useQueryClient } from "react-query";
 import { ModalFormState } from "./types";
 import CloseIcon from "@mui/icons-material/Close";
 import useToastMessage from "@/hooks/common/useToastMessage";
+import { TOAST_MESSAGE } from "@/utils/toastMessage";
 
 interface FormModalProps {
   updateMode: boolean;
@@ -50,14 +51,14 @@ const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
     if (!updateMode) {
       // 투두 생성
       if (title === "" || content === "") {
-        useToastMessage("제목과 내용을 입력해야 합니다.", "error");
+        useToastMessage(TOAST_MESSAGE.TODO.NOT_ALLOW_EMPTY_STRING, "error");
         return;
       }
       createMutate({ title, content, authToken });
     } else {
       // 투두 업데이트
       if (title === "" || content === "") {
-        useToastMessage("제목과 내용을 입력해야 합니다.", "error");
+        useToastMessage(TOAST_MESSAGE.TODO.NOT_ALLOW_EMPTY_STRING, "error");
         return;
       }
       updateMutate({ id, title, content, authToken });

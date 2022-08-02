@@ -1,5 +1,6 @@
 import useToastMessage from "@/hooks/common/useToastMessage";
 import { useAuthStore } from "@/store/useAuthStore";
+import { TOAST_MESSAGE } from "@/utils/toastMessage";
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import Header from "../Header/Header";
@@ -12,9 +13,9 @@ const Layout = ({ children }: LayoutProps) => {
   useEffect(() => {
     // 토큰 유무에 따른 메세지 출력
     if (authToken) {
-      useToastMessage("로그인 되었습니다.", "success");
+      useToastMessage(TOAST_MESSAGE.AUTH.LOGIN_SUCCESS, "success");
     } else {
-      useToastMessage("로그아웃 되었습니다.", "error");
+      useToastMessage(TOAST_MESSAGE.AUTH.LOGOUT_SUCCESS, "error");
     }
   }, [authToken]);
 
