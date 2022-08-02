@@ -6,3 +6,7 @@ export interface ModalFormState {
 export interface ToDoMutationState extends ModalFormState {
   authToken: string;
 }
+
+export interface ToDoMutationStateWithId extends ToDoMutationState {
+  id: string;
+}

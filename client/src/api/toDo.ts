@@ -1,4 +1,7 @@
-import { ToDoMutationState } from "@/components/ToDo/Modal/types";
+import {
+  ToDoMutationState,
+  ToDoMutationStateWithId,
+} from "@/components/ToDo/Modal/types";
 import clientApi from "./axios";
 
 export type ToDoData = {
@@ -55,13 +58,19 @@ const ToDoAPI = {
 
   update: async ({
     id,
+    title,
+    content,
     authToken,
-  }: IdAndToken): Promise<{ data: ToDoData }> => {
-    const response = await clientApi.put<{ data: ToDoData }>(`/todos/${id}`, {
-      headers: {
-        Authorization: authToken,
-      },
-    });
+  }: ToDoMutationStateWithId): Promise<{ data: ToDoData }> => {
+    const response = await clientApi.put<{ data: ToDoData }>(
+      `/todos/${id}`,
+      { title, content },
+      {
+        headers: {
+          Authorization: authToken,
+        },
+      }
+    );
     return response.data;
   },
 

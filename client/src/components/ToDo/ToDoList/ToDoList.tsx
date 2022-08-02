@@ -13,11 +13,20 @@ import DeleteModal from "../Modal/DeleteModal";
 import { useDeleteModalStore } from "@/store/useDeleteModalStore";
 import { useEffect, useState } from "react";
 import useToastMessage from "@/hooks/common/useToastMessage";
+import { useUpdateToDoStore } from "@/store/useUpdateToDoStore";
+import useCheckIdByURL from "@/hooks/common/useCheckIdByURL";
+import { useFormModalStore } from "@/store/useFormModalStore";
 
 const ToDoList = () => {
   const [deleteState, setDeleteState] = useState(false); // 투두를 지우기 위한 state
   const [toDoId, setToDoId] = useState("");
-  const openModal = useDeleteModalStore((state) => state.openModal);
+
+  const { updateMode, setUpdateMode } = useUpdateToDoStore();
+  const openDeleteModal = useDeleteModalStore((state) => state.openModal); // 투두 리스트 지우는 것 확인하는 모달
+  const openFormModal = useFormModalStore((state) => state.openModal); // 업데이트 폼 모달
+
+  const checkId = useCheckIdByURL();
+
   const queryClient = useQueryClient();
   const authToken = useAuthStore((state) => state.token);
 
@@ -36,7 +45,7 @@ const ToDoList = () => {
 
   const onDeleteButton = async (id: string) => {
     setToDoId(id);
-    openModal();
+    openDeleteModal();
   };
 
   useEffect(() => {
@@ -45,6 +54,13 @@ const ToDoList = () => {
       setDeleteState(false);
     }
   }, [deleteState]);
+
+  const onClickUpdate = (toDoId: string) => {
+    setUpdateMode(true);
+    setToDoId(toDoId);
+    openFormModal();
+  };
+
   return (
     <>
       <Stack
@@ -76,30 +92,47 @@ const ToDoList = () => {
                   >
                     <Stack>
                       <Link to={`/todos/${toDo.id}`}>
-                        <Typography>{toDo.title}</Typography>{" "}
+                        <Typography>{toDo.title}</Typography>
                       </Link>
 
                       <UpdatedAt updatedAt={toDo.updatedAt} />
                     </Stack>
                     <Stack gap={2}>
                       <IconButton
-                        sx={{ zIndex: 999 }}
                         onClick={() => onDeleteButton(toDo.id)}
                         aria-label="delete"
                         size="small"
                       >
                         <DeleteIcon fontSize="small" />
                       </IconButton>
-                      <Typography
-                        sx={{
-                          textAlign: "end",
-                          color: "gray",
-                          fontSize: "0.7rem",
-                          cursor: "pointer",
-                        }}
-                      >
-                        수정
-                      </Typography>
+                      <Stack flexDirection="row" gap={1}>
+                        {toDo.id === checkId && (
+                          <Typography
+                            onClick={() => onClickUpdate(toDo.id)}
+                            sx={{
+                              textAlign: "end",
+                              color: "gray",
+                              fontSize: "0.7rem",
+                              cursor: "pointer",
+                            }}
+                          >
+                            수정
+                          </Typography> // 내용이 보일 때만
+                        )}
+                        {/* {updateMode && toDo.id === checkId && (
+                          <Typography
+                            onClick={onClickUpdateCancel}
+                            sx={{
+                              textAlign: "end",
+                              color: "gray",
+                              fontSize: "0.7rem",
+                              cursor: "pointer",
+                            }}
+                          >
+                            취소
+                          </Typography> // 내용이 보이고 업데이트 모드일 때만
+                        )} */}
+                      </Stack>
                     </Stack>
                   </Stack>
                   <Outlet context={{ id: toDo.id, content: toDo.content }} />
@@ -109,7 +142,7 @@ const ToDoList = () => {
           ))
         )}
       </Stack>
-      <ToDoModalForm />
+      <ToDoModalForm updateMode={updateMode} id={toDoId} />
       <DeleteModal setDeleteState={setDeleteState} />
       <FloatingButton />
     </>

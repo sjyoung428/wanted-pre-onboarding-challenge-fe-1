@@ -5,8 +5,7 @@ import { useLocation, useOutletContext } from "react-router-dom";
 
 const ToDoDetail = () => {
   const { id, content } = useOutletContext<Pick<ToDoData, "id" | "content">>();
-  const { pathname } = useLocation();
-  const checkId = useCheckIdByURL(pathname);
+  const checkId = useCheckIdByURL();
 
   return (
     <>

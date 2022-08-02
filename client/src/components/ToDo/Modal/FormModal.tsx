@@ -1,26 +1,42 @@
-import ToDoAPI from "@/api/toDo";
 import useCreateToDo from "@/hooks/query/useCreateToDo";
 import useGetToDoList from "@/hooks/query/useGetToDoList";
+import useUpdateToDo from "@/hooks/query/useUpdateToDo";
 import { useAuthStore } from "@/store/useAuthStore";
-import { useEnterModalStore } from "@/store/useEnterModalStore";
+import { useFormModalStore } from "@/store/useFormModalStore";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
 import { ModalFormState } from "./types";
 
-const ToDoModalForm = () => {
+interface FormModalProps {
+  updateMode: boolean;
+  id: string;
+}
+
+const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
   const queryClient = useQueryClient();
-  const { open, closeModal } = useEnterModalStore();
+  const { open, closeModal } = useFormModalStore();
   const { register, handleSubmit, reset } = useForm<ModalFormState>();
   const authToken = useAuthStore((state) => state.token);
-  const { mutate } = useCreateToDo({
+  const { mutate: createMutate } = useCreateToDo({
+    onSuccess: async () => {
+      await queryClient.refetchQueries(useGetToDoList.getKey(authToken));
+    },
+  });
+  const { mutate: updateMutate } = useUpdateToDo({
     onSuccess: async () => {
       await queryClient.refetchQueries(useGetToDoList.getKey(authToken));
     },
   });
 
   const onValid = async ({ title, content }: ModalFormState) => {
-    mutate({ title, content, authToken });
+    if (!updateMode) {
+      // 투두 생성
+      createMutate({ title, content, authToken });
+    } else {
+      // 투두 업데이트
+      updateMutate({ id, title, content, authToken });
+    }
     reset();
     closeModal();
   };
@@ -50,7 +66,9 @@ const ToDoModalForm = () => {
             p: 4,
           }}
         >
-          <Typography id="modal-modal-title">ToDo 작성하기</Typography>
+          <Typography id="modal-modal-title">
+            {updateMode ? "ToDo 수정하기" : "ToDo 작성하기"}
+          </Typography>
           <TextField {...register("title")} placeholder="제목" />
           <TextField
             {...register("content")}

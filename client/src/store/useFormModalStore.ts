@@ -9,7 +9,7 @@ interface ModalAction {
   closeModal: () => void;
 }
 
-export const useEnterModalStore = create<ModalState & ModalAction>((set) => ({
+export const useFormModalStore = create<ModalState & ModalAction>((set) => ({
   // state
   open: false,
 
