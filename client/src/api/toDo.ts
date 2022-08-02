@@ -36,24 +36,24 @@ const ToDoAPI = {
   },
 
   getAll: async (token: string): Promise<{ data: ToDoData[] }> => {
-    const response = await clientApi.get<{ data: ToDoData[] }>("/todos", {
+    const { data } = await clientApi.get<{ data: ToDoData[] }>("/todos", {
       headers: {
         Authorization: token,
       },
     });
-    return response.data;
+    return data;
   },
 
   getById: async ({
     id,
     authToken,
   }: IdAndToken): Promise<{ data: ToDoData }> => {
-    const response = await clientApi.get<{ data: ToDoData }>(`/todos/${id}`, {
+    const { data } = await clientApi.get<{ data: ToDoData }>(`/todos/${id}`, {
       headers: {
         Authorization: authToken,
       },
     });
-    return response.data;
+    return data;
   },
 
   update: async ({
@@ -62,7 +62,7 @@ const ToDoAPI = {
     content,
     authToken,
   }: ToDoMutationStateWithId): Promise<{ data: ToDoData }> => {
-    const response = await clientApi.put<{ data: ToDoData }>(
+    const { data } = await clientApi.put<{ data: ToDoData }>(
       `/todos/${id}`,
       { title, content },
       {
@@ -71,16 +71,16 @@ const ToDoAPI = {
         },
       }
     );
-    return response.data;
+    return data;
   },
 
   delete: async ({ id, authToken }: IdAndToken): Promise<{ data: null }> => {
-    const response = await clientApi.delete<{ data: null }>(`/todos/${id}`, {
+    const { data } = await clientApi.delete<{ data: null }>(`/todos/${id}`, {
       headers: {
         Authorization: authToken,
       },
     });
-    return response.data;
+    return data;
   },
 };
 

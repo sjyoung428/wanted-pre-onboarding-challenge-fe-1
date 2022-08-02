@@ -8,13 +8,13 @@ interface AuthResponse {
 
 const AuthAPI = {
   login: async (body: EnterFormState): Promise<AuthResponse> => {
-    const response = await clientApi.post("/users/login", body);
-    return response.data;
+    const { data } = await clientApi.post("/users/login", body);
+    return data;
   },
 
   signUp: async (body: EnterFormState): Promise<AuthResponse> => {
-    const response = await clientApi.post("/users/create", body);
-    return response.data;
+    const { data } = await clientApi.post("/users/create", body);
+    return data;
   },
 };
 
