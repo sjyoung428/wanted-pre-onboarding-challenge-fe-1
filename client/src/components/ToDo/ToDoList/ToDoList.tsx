@@ -39,8 +39,10 @@ const ToDoList = () => {
 
   // 투두 리스트 삭제
   const { mutate } = useDeleteToDo({
-    onSuccess: async () =>
+    onSuccess: async () => {
       await queryClient.refetchQueries(useGetToDoList.getKey(authToken)),
+        useToastMessage("성공적으로 삭제했습니다.", "success");
+    },
   });
 
   const onDeleteButton = async (id: string) => {
@@ -55,12 +57,13 @@ const ToDoList = () => {
     }
   }, [deleteState]);
 
+  // 투두 리스트 업데이트
   const onClickUpdate = (toDoId: string) => {
     setUpdateMode(true);
     setToDoId(toDoId);
     openFormModal();
   };
-
+  console.log("test");
   return (
     <>
       <Stack
