@@ -2,19 +2,22 @@ import { useAuthStore } from "@/store/useAuthStore";
 import { Box, Button } from "@mui/material";
 import { Link, useMatch } from "react-router-dom";
 import { S } from "./styled";
+import { Helmet } from "react-helmet-async";
 
 const Header = () => {
   const { token: authToken, removeToken } = useAuthStore();
+  const homeURL = useMatch("/" || "/todos/*");
   const authURL = useMatch("/auth");
-  const homeURL = useMatch("/");
   const onLogout = () => {
     if (authToken) {
       removeToken("token");
     }
   };
-
   return (
     <>
+      <Helmet>
+        <title>사용자 인증</title>
+      </Helmet>
       <S.Navigation>
         <Box />
         <S.Title>{homeURL ? "ToDoList" : authURL ? "Auth" : ""}</S.Title>

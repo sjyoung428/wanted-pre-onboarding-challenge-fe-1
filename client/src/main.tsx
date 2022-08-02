@@ -6,6 +6,7 @@ import { GlobalStyle } from "@/styles/global";
 import Layout from "./components/Layout/Layout";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
 
@@ -15,9 +16,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
         <ReactQueryDevtools />
         <GlobalStyle />
-        <Layout>
-          <App />
-        </Layout>
+        <HelmetProvider>
+          <Layout>
+            <App />
+          </Layout>
+        </HelmetProvider>
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>

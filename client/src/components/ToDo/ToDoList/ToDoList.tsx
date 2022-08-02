@@ -119,23 +119,16 @@ const ToDoList = () => {
                             수정
                           </Typography> // 내용이 보일 때만
                         )}
-                        {/* {updateMode && toDo.id === checkId && (
-                          <Typography
-                            onClick={onClickUpdateCancel}
-                            sx={{
-                              textAlign: "end",
-                              color: "gray",
-                              fontSize: "0.7rem",
-                              cursor: "pointer",
-                            }}
-                          >
-                            취소
-                          </Typography> // 내용이 보이고 업데이트 모드일 때만
-                        )} */}
                       </Stack>
                     </Stack>
                   </Stack>
-                  <Outlet context={{ id: toDo.id, content: toDo.content }} />
+                  <Outlet
+                    context={{
+                      id: toDo.id,
+                      content: toDo.content,
+                      title: toDo.title,
+                    }}
+                  />
                 </>
               </Stack>
             </div>
