@@ -1,12 +1,22 @@
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 import useCreateToDo from "@/hooks/query/useCreateToDo";
+import useGetToDoById from "@/hooks/query/useGetToDoById";
 import useGetToDoList from "@/hooks/query/useGetToDoList";
 import useUpdateToDo from "@/hooks/query/useUpdateToDo";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useFormModalStore } from "@/store/useFormModalStore";
-import { Box, Button, Modal, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
 import { ModalFormState } from "./types";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface FormModalProps {
   updateMode: boolean;
@@ -18,15 +28,21 @@ const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
   const { open, closeModal } = useFormModalStore();
   const { register, handleSubmit, reset } = useForm<ModalFormState>();
   const authToken = useAuthStore((state) => state.token);
+  // 투두 생성 커스텀 뮤테이션 훅
   const { mutate: createMutate } = useCreateToDo({
     onSuccess: async () => {
       await queryClient.refetchQueries(useGetToDoList.getKey(authToken));
     },
   });
+  // 투두 업데이트 커스텀 뮤테이션 훅
   const { mutate: updateMutate } = useUpdateToDo({
     onSuccess: async () => {
       await queryClient.refetchQueries(useGetToDoList.getKey(authToken));
     },
+  });
+
+  const { data, isLoading } = useGetToDoById(id, authToken, {
+    enabled: updateMode ? true : false,
   });
 
   const onValid = async ({ title, content }: ModalFormState) => {
@@ -40,6 +56,8 @@ const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
     reset();
     closeModal();
   };
+
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <>
@@ -66,20 +84,37 @@ const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
             p: 4,
           }}
         >
-          <Typography id="modal-modal-title">
+          <Typography
+            id="modal-modal-title"
+            sx={{
+              marginBottom: "0.5rem",
+              fontSize: "2rem",
+              fontWeight: "bold",
+            }}
+          >
             {updateMode ? "ToDo 수정하기" : "ToDo 작성하기"}
           </Typography>
-          <TextField {...register("title")} placeholder="제목" />
+          <TextField
+            {...register("title")}
+            placeholder={updateMode ? data?.data.title : "제목"}
+          />
           <TextField
             {...register("content")}
             sx={{ mt: 2 }}
             multiline
             rows={4}
-            placeholder="내용"
+            placeholder={updateMode ? data?.data.content : "내용"}
           />
           <Button sx={{ mt: 2 }} type="submit" variant="contained">
-            작성하기
+            {updateMode ? "수정하기" : "작성하기"}
           </Button>
+          <Stack
+            flexDirection="row"
+            justifyContent="flex-end"
+            sx={{ order: -1 }}
+          >
+            <CloseIcon onClick={closeModal} sx={{ cursor: "pointer" }} />
+          </Stack>
         </Box>
       </Modal>
     </>
