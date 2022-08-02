@@ -1,7 +1,7 @@
 import { EnterFormState } from "@/pages/Auth/types";
 import clientApi from "./axios";
 
-interface AuthResponse {
+export interface AuthResponse {
   message: string;
   token: string;
 }

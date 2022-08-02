@@ -9,6 +9,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useToastMessage from "@/hooks/common/useToastMessage";
 import { TOAST_MESSAGE } from "@/utils/toastMessage";
+import useSignUp from "@/hooks/query/useSignUp";
+import { toToastItem } from "react-toastify/dist/utils";
 
 const Auth = () => {
   const [formType, setFormType] = useState<FormType>("login");
@@ -20,6 +22,12 @@ const Auth = () => {
   } = useForm<EnterFormState>();
   const navigate = useNavigate();
   const { token: authToken, setToken } = useAuthStore();
+
+  const { mutate: signUp, isError } = useSignUp({
+    onError: () => {
+      useToastMessage(TOAST_MESSAGE.AUTH.EXIST_USER, "error");
+    },
+  });
 
   // valid
   const onValid = async ({ email, password }: EnterFormState) => {
@@ -39,7 +47,9 @@ const Auth = () => {
 
     // 회원가입
     if (formType === "register") {
-      await AuthAPI.signUp({ email, password });
+      signUp({ email, password });
+      if (isError) return;
+
       setFormType("login");
     }
   };
