@@ -141,7 +141,7 @@ const ToDoList = () => {
       </Stack>
       <ToDoModalForm updateMode={updateMode} id={toDoId} />
       <DeleteModal setDeleteState={setDeleteState} />
-      <FloatingButton />
+      {authToken && <FloatingButton />}
     </>
   );
 };

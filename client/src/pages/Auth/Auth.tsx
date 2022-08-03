@@ -10,7 +10,6 @@ import "react-toastify/dist/ReactToastify.css";
 import useToastMessage from "@/hooks/common/useToastMessage";
 import { TOAST_MESSAGE } from "@/utils/toastMessage";
 import useSignUp from "@/hooks/query/useSignUp";
-import { toToastItem } from "react-toastify/dist/utils";
 
 const Auth = () => {
   const [formType, setFormType] = useState<FormType>("login");
