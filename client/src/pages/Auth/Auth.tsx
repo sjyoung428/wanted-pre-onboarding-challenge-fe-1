@@ -1,5 +1,5 @@
 import { Box, Button, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthAPI from "@/api/auth";
 import { useNavigate } from "react-router-dom";
@@ -64,6 +64,12 @@ const Auth = () => {
       useToastMessage(password.message, "error");
     }
   };
+
+  useEffect(() => {
+    if (authToken) {
+      navigate("/");
+    }
+  }, []);
 
   const onToggleType = () => {
     reset();

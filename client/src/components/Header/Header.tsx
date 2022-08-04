@@ -32,13 +32,7 @@ const Header = () => {
               로그아웃
             </Button>
           )}
-          {!authURL ? (
-            <Button variant="text" onClick={onLogout}>
-              <Link to="/auth">
-                {authToken ? "계정 바꾸러 가기" : "로그인하러 가기"}
-              </Link>
-            </Button>
-          ) : (
+          {authURL && (
             <Button variant="text">
               <Link to="/">홈</Link>
             </Button>
