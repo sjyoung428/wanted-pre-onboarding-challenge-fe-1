@@ -1,3 +1,4 @@
+import "react-toastify/dist/ReactToastify.css";
 import useToastMessage from "@/hooks/common/useToastMessage";
 import { useAuthStore } from "@/store/useAuthStore";
 import { TOAST_MESSAGE } from "@/utils/toastMessage";

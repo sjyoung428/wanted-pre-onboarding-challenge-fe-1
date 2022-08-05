@@ -5,8 +5,6 @@ import AuthAPI from "@/api/auth";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/useAuthStore";
 import { EnterFormState, FormType } from "./types";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import useToastMessage from "@/hooks/common/useToastMessage";
 import { TOAST_MESSAGE } from "@/utils/toastMessage";
 import useSignUp from "@/hooks/query/useSignUp";
@@ -117,7 +115,6 @@ const Auth = () => {
           {formType === "login" ? "회원가입하러 가기" : "로그인하러 가기"}
         </Button>
       </Box>
-      <ToastContainer />
     </>
   );
 };
