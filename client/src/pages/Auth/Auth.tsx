@@ -38,6 +38,7 @@ const Auth = () => {
           navigate("/");
         }
         setToken("token", loginResponse.token);
+        useToastMessage(TOAST_MESSAGE.AUTH.LOGIN_SUCCESS, "success");
         navigate("/");
       } catch (error: unknown) {
         useToastMessage(TOAST_MESSAGE.AUTH.INVALID_LOGIN, "error");
