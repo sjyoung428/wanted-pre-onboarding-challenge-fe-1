@@ -15,7 +15,7 @@ const Layout = ({ children }: LayoutProps) => {
   const authUrl = useMatch("/auth");
   useEffect(() => {
     if (!authToken) {
-      navigate("/auth");
+      navigate("/auth", { replace: true });
       if (!authUrl) {
         useToastMessage(TOAST_MESSAGE.AUTH.ONLY_LOGIN, "error");
       }
