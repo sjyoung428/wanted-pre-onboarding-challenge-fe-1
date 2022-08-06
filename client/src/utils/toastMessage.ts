@@ -7,6 +7,8 @@ export const TOAST_MESSAGE = {
     INVALID_EMAIL: "이메일 형식은 @ 과 .를 포함해야 합니다.",
     INVALID_PASSWORD: "비밀번호는 8자리 이상 입력해야 합니다.",
     EXIST_USER: "이미 존재하는 유저입니다",
+    EMAIL_REQUIRED: "이메일 입력은 필수입니다.",
+    PASSWORD_REQUIRED: "비밀번호 입력은 필수입니다.",
   },
   TODO: {
     NOT_ALLOW_EMPTY_STRING: "제목과 내용을 입력해야 합니다.",

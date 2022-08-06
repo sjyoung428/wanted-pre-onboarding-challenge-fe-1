@@ -54,6 +54,7 @@ const Auth = () => {
   // invalid
   const onInValid = () => {
     const { email, password } = errors;
+
     // email 에러 메세지
     if (email && email.message) {
       useToastMessage(email.message, "error");
@@ -85,7 +86,7 @@ const Auth = () => {
       >
         <TextField
           {...register("email", {
-            required: true,
+            required: TOAST_MESSAGE.AUTH.EMAIL_REQUIRED,
             validate: (email) =>
               (email.includes("@") && email.includes(".")) ||
               TOAST_MESSAGE.AUTH.INVALID_EMAIL, // 이메일 최소 조건
@@ -97,7 +98,7 @@ const Auth = () => {
         />
         <TextField
           {...register("password", {
-            required: true,
+            required: TOAST_MESSAGE.AUTH.PASSWORD_REQUIRED,
             minLength: {
               value: 8,
               message: TOAST_MESSAGE.AUTH.INVALID_PASSWORD,
