@@ -24,6 +24,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <>
+      {/* {!authToken && <Navigate to="/auth" replace />} */}
       <Header />
       <S.Container>{children}</S.Container>
       <ToastContainer />

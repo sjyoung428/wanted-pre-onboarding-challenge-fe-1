@@ -2,7 +2,7 @@ import { Box, Button, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthAPI from "@/api/auth";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/useAuthStore";
 import { EnterFormState, FormType } from "./types";
 import useToastMessage from "@/hooks/common/useToastMessage";
@@ -65,12 +65,6 @@ const Auth = () => {
     }
   };
 
-  useEffect(() => {
-    if (authToken) {
-      navigate("/");
-    }
-  }, []);
-
   const onToggleType = () => {
     reset();
     if (formType === "login") setFormType("register");
@@ -79,6 +73,7 @@ const Auth = () => {
 
   return (
     <>
+      {authToken && <Navigate to="/" replace />}
       <Box
         component="form"
         sx={{ display: "flex", flexDirection: "column", gap: 1 }}
