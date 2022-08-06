@@ -76,10 +76,13 @@ const Auth = () => {
       {authToken && <Navigate to="/" replace />}
       <Box
         component="form"
-        sx={{ display: "flex", flexDirection: "column", gap: 1 }}
+        sx={{ display: "flex", flexDirection: "column" }}
         onSubmit={handleSubmit(onValid, onInValid)}
       >
         <TextField
+          sx={{
+            marginBottom: "0.5rem",
+          }}
           {...register("email", {
             required: TOAST_MESSAGE.AUTH.EMAIL_REQUIRED,
             validate: (email) =>
@@ -92,6 +95,9 @@ const Auth = () => {
           variant="outlined"
         />
         <TextField
+          sx={{
+            marginBottom: "0.5rem",
+          }}
           {...register("password", {
             required: TOAST_MESSAGE.AUTH.PASSWORD_REQUIRED,
             minLength: {
