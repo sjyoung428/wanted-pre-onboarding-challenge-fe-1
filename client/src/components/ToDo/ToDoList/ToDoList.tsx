@@ -12,11 +12,11 @@ import { useQueryClient } from "react-query";
 import DeleteModal from "../Modal/DeleteModal";
 import { useDeleteModalStore } from "@/store/useDeleteModalStore";
 import { useEffect, useState } from "react";
-import useToastMessage from "@/hooks/common/useToastMessage";
+import useToastMessage from "@/utils/toast/useToastMessage";
 import { useUpdateToDoStore } from "@/store/useUpdateToDoStore";
 import useCheckIdByURL from "@/hooks/common/useCheckIdByURL";
 import { useFormModalStore } from "@/store/useFormModalStore";
-import { TOAST_MESSAGE } from "@/utils/toastMessage";
+import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
 
 const ToDoList = () => {
   const [deleteState, setDeleteState] = useState(false); // 투두를 지우기 위한 state

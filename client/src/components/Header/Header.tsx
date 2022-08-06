@@ -3,8 +3,8 @@ import { Box, Button } from "@mui/material";
 import { Link, useMatch } from "react-router-dom";
 import { S } from "./styled";
 import { Helmet } from "react-helmet-async";
-import useToastMessage from "@/hooks/common/useToastMessage";
-import { TOAST_MESSAGE } from "@/utils/toastMessage";
+import useToastMessage from "@/utils/toast/useToastMessage";
+import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
 import React from "react";
 
 const Header = () => {

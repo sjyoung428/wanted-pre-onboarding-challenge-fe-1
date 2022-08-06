@@ -17,8 +17,8 @@ import { useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
 import { ModalFormState } from "./types";
 import CloseIcon from "@mui/icons-material/Close";
-import useToastMessage from "@/hooks/common/useToastMessage";
-import { TOAST_MESSAGE } from "@/utils/toastMessage";
+import useToastMessage from "@/utils/toast/useToastMessage";
+import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
 
 interface FormModalProps {
   updateMode: boolean;
@@ -29,7 +29,7 @@ const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
   const queryClient = useQueryClient();
   const { open, closeModal } = useFormModalStore();
   const { register, handleSubmit, reset } = useForm<ModalFormState>();
-  const authToken = useAuthStore((state) => state.token);
+  const authToken = useAuthStore((state) => state.authToken);
   // 투두 생성 커스텀 뮤테이션 훅
   const { mutate: createMutate } = useCreateToDo({
     onSuccess: async () => {

@@ -1,7 +1,7 @@
 import "react-toastify/dist/ReactToastify.css";
-import useToastMessage from "@/hooks/common/useToastMessage";
+import useToastMessage from "@/utils/toast/useToastMessage";
 import { useAuthStore } from "@/store/useAuthStore";
-import { TOAST_MESSAGE } from "@/utils/toastMessage";
+import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
 import { useEffect } from "react";
 import { useMatch, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";

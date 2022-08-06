@@ -5,8 +5,8 @@ import AuthAPI from "@/api/auth";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/useAuthStore";
 import { EnterFormState, FormType } from "./types";
-import useToastMessage from "@/hooks/common/useToastMessage";
-import { TOAST_MESSAGE } from "@/utils/toastMessage";
+import useToastMessage from "@/utils/toast/useToastMessage";
+import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
 import useSignUp from "@/hooks/query/useSignUp";
 
 const Auth = () => {
