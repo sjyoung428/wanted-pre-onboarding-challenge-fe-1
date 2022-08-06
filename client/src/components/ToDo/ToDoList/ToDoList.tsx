@@ -75,6 +75,7 @@ const ToDoList = () => {
           border: "1px solid black",
           overflow: "scroll",
           padding: "1rem 1rem",
+          borderRadius: "5px",
         }}
       >
         {isLoading ? (

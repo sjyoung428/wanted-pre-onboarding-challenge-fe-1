@@ -26,10 +26,10 @@ const DeleteModal = ({ setDeleteState }: DeleteModalProps) => {
           정말 삭제하시겠습니까?
         </DialogContent>
         <Button onClick={setDelete} variant="text">
-          예
+          삭제
         </Button>
         <Button onClick={closeModal} variant="text">
-          아니오
+          취소
         </Button>
       </Dialog>
     </>
