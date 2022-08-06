@@ -9,7 +9,8 @@ import React from "react";
 
 const Header = () => {
   const { token: authToken, removeToken } = useAuthStore();
-  const homeURL = useMatch("/" || "/todos/*");
+  const rootURL = useMatch("/");
+  const detailURL = useMatch("/todos/:id");
   const authURL = useMatch("/auth");
   const onLogout = () => {
     if (authToken) {
@@ -17,7 +18,7 @@ const Header = () => {
       useToastMessage(TOAST_MESSAGE.AUTH.LOGOUT_SUCCESS, "error");
     }
   };
-  console.log(homeURL);
+  const homeURL = rootURL || detailURL;
   return (
     <>
       <Helmet>
