@@ -29,7 +29,7 @@ const ToDoList = () => {
   const checkId = useCheckIdByURL();
 
   const queryClient = useQueryClient();
-  const authToken = useAuthStore((state) => state.token);
+  const authToken = useAuthStore((state) => state.authToken);
 
   // 모든 투두 리스트 가져오기
   const { data, isLoading } = useGetToDoList(authToken, {

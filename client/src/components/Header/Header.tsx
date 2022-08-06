@@ -8,7 +8,7 @@ import { TOAST_MESSAGE } from "@/utils/toastMessage";
 import React from "react";
 
 const Header = () => {
-  const { token: authToken, removeToken } = useAuthStore();
+  const { authToken, removeToken } = useAuthStore();
   const rootURL = useMatch("/");
   const detailURL = useMatch("/todos/:id");
   const authURL = useMatch("/auth");

@@ -4,7 +4,7 @@ import { setLocalStorage } from "@/utils/setLocalStorage";
 import create from "zustand";
 
 interface AuthState {
-  token: string;
+  authToken: string;
 }
 
 interface AuthAction {
@@ -14,14 +14,14 @@ interface AuthAction {
 
 export const useAuthStore = create<AuthState & AuthAction>((set) => ({
   // state
-  token: getLocalStorage<string>("token") || "",
+  authToken: getLocalStorage<string>("authToken") || "",
   // action
   setToken: (keyname, authToken) => {
-    set(() => ({ token: authToken }));
+    set(() => ({ authToken }));
     setLocalStorage(keyname, authToken);
   },
   removeToken: (keyname) => {
-    set(() => ({ token: "" }));
+    set(() => ({ authToken: "" }));
     removeLocalStorage(keyname);
   },
 }));

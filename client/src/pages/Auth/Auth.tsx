@@ -1,5 +1,5 @@
 import { Box, Button, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthAPI from "@/api/auth";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ const Auth = () => {
     formState: { errors },
   } = useForm<EnterFormState>();
   const navigate = useNavigate();
-  const { token: authToken, setToken } = useAuthStore();
+  const { authToken, setToken } = useAuthStore();
 
   const { mutate: signUp, isError } = useSignUp({
     onError: () => {
@@ -35,7 +35,7 @@ const Auth = () => {
         if (authToken === loginResponse.token) {
           navigate("/");
         }
-        setToken("token", loginResponse.token);
+        setToken("authToken", loginResponse.token);
         useToastMessage(TOAST_MESSAGE.AUTH.LOGIN_SUCCESS, "success");
         navigate("/");
       } catch (error: unknown) {

@@ -10,7 +10,7 @@ import { S } from "./styled";
 import { LayoutProps } from "./types";
 
 const Layout = ({ children }: LayoutProps) => {
-  const authToken = useAuthStore((state) => state.token);
+  const authToken = useAuthStore((state) => state.authToken);
   const navigate = useNavigate();
   const authUrl = useMatch("/auth");
   useEffect(() => {
@@ -21,7 +21,6 @@ const Layout = ({ children }: LayoutProps) => {
       }
     }
   }, [authToken, navigate]);
-
   return (
     <>
       {/* {!authToken && <Navigate to="/auth" replace />} */}
