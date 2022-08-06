@@ -6,7 +6,17 @@
 ![Zustand](https://img.shields.io/badge/zustand-%2320232a.svg?style=for-the-badge&logo=zustand&logoColor=%2361DAFB)
 ![Mui](https://img.shields.io/badge/mui-%2320232a.svg?style=for-the-badge&logo=mui&logoColor=%2361DAFB)
 
-# To Do
+# 실행 화면
+
+## Auth
+
+![auth](https://user-images.githubusercontent.com/77968955/183245397-2df522a1-ec70-497e-bbcb-4a8ed31877fe.gif)
+
+## ToDoList
+
+![todo](https://user-images.githubusercontent.com/77968955/183245537-1bb5b68b-6edc-4899-9994-aa6c2d89b97b.gif)
+
+<hr/>
 
 ## Assignment 1 - Login / SignUp
 
