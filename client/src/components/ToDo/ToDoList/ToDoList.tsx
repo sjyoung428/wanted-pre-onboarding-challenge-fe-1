@@ -33,7 +33,6 @@ const ToDoList = () => {
 
   // 모든 투두 리스트 가져오기
   const { data, isLoading } = useGetToDoList(authToken, {
-    
     onError: (error) => {
       useToastMessage(TOAST_MESSAGE.AUTH.ONLY_LOGIN, "error");
     },
@@ -97,7 +96,13 @@ const ToDoList = () => {
                   >
                     <Stack>
                       <Link to={`/todos/${toDo.id}`}>
-                        <Typography>{toDo.title}</Typography>
+                        <Typography
+                          component="h2"
+                          fontWeight={500}
+                          fontSize="1.5rem"
+                        >
+                          {toDo.title}
+                        </Typography>
                       </Link>
 
                       <UpdatedAt updatedAt={toDo.updatedAt} />

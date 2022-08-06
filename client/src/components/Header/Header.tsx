@@ -17,6 +17,7 @@ const Header = () => {
       useToastMessage(TOAST_MESSAGE.AUTH.LOGOUT_SUCCESS, "error");
     }
   };
+  console.log(homeURL);
   return (
     <>
       <Helmet>
