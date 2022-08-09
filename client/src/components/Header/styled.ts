@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { flexCenter } from "../../styles/flex";
+import { flexCenter } from "@/styles/flex";
 
 const Navigation = styled.div`
   width: 100%;
