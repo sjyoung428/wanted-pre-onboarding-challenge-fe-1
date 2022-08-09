@@ -14,7 +14,7 @@ const Header = () => {
   const authURL = useMatch("/auth");
   const onLogout = () => {
     if (authToken) {
-      removeToken("token");
+      removeToken("authToken");
       useToastMessage(TOAST_MESSAGE.AUTH.LOGOUT_SUCCESS, "error");
     }
   };
