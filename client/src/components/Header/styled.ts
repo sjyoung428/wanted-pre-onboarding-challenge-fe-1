@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { flexCenter } from "../../styles/flex";
 
 const Navigation = styled.div`
   width: 100%;
@@ -12,9 +13,7 @@ const Navigation = styled.div`
 `;
 
 const Title = styled.h1`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${flexCenter}
   font-size: 3rem;
 `;
 
