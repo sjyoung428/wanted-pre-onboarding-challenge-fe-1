@@ -21,6 +21,10 @@ const Auth = () => {
   const { authToken, setToken } = useAuthStore();
 
   const { mutate: signUp, isError } = useSignUp({
+    onSuccess: () => {
+      setFormType("login");
+      useToastMessage(TOAST_MESSAGE.AUTH.REGISTER_SUCCESS, "success");
+    },
     onError: () => {
       useToastMessage(TOAST_MESSAGE.AUTH.EXIST_USER, "error");
     },
@@ -47,8 +51,6 @@ const Auth = () => {
     if (formType === "register") {
       signUp({ email, password });
       if (isError) return;
-
-      setFormType("login");
     }
   };
   // invalid
