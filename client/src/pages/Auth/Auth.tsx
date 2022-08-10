@@ -22,7 +22,7 @@ const Auth = () => {
   const { authToken, setToken } = useAuthStore();
 
   // 로그인
-  const { mutate: loginMutate } = useLogin({
+  const { mutate: login } = useLogin({
     onSuccess: (loginResponse) => {
       setToken("authToken", loginResponse.token);
       useToastMessage(TOAST_MESSAGE.AUTH.LOGIN_SUCCESS, "success");
@@ -48,7 +48,7 @@ const Auth = () => {
   const onValid = async ({ email, password }: EnterFormState) => {
     // 로그인
     if (formType === "login") {
-      loginMutate({ email, password });
+      login({ email, password });
     }
 
     // 회원가입

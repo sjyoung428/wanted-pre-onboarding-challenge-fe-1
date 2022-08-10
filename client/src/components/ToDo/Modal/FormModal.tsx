@@ -31,13 +31,13 @@ const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
   const { register, handleSubmit, reset } = useForm<ModalFormState>();
   const authToken = useAuthStore((state) => state.authToken);
   // 투두 생성 커스텀 뮤테이션 훅
-  const { mutate: createMutate } = useCreateToDo({
+  const { mutate: createToDo } = useCreateToDo({
     onSuccess: async () => {
       await queryClient.invalidateQueries(useGetToDoList.getKey(authToken));
     },
   });
   // 투두 업데이트 커스텀 뮤테이션 훅
-  const { mutate: updateMutate } = useUpdateToDo({
+  const { mutate: updateToDo } = useUpdateToDo({
     onSuccess: async () => {
       await queryClient.invalidateQueries(useGetToDoList.getKey(authToken));
     },
@@ -54,14 +54,14 @@ const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
         useToastMessage(TOAST_MESSAGE.TODO.NOT_ALLOW_EMPTY_STRING, "error");
         return;
       }
-      createMutate({ title, content, authToken });
+      createToDo({ title, content, authToken });
     } else {
       // 투두 업데이트
       if (title === "" || content === "") {
         useToastMessage(TOAST_MESSAGE.TODO.NOT_ALLOW_EMPTY_STRING, "error");
         return;
       }
-      updateMutate({ id, title, content, authToken });
+      updateToDo({ id, title, content, authToken });
     }
     reset();
     closeModal();
