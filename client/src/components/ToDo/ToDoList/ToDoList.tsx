@@ -39,7 +39,7 @@ const ToDoList = () => {
   });
 
   // 투두 리스트 삭제
-  const { mutate } = useDeleteToDo({
+  const { mutate: deleteMutate } = useDeleteToDo({
     onSuccess: async () => {
       await queryClient.refetchQueries(useGetToDoList.getKey(authToken)),
         useToastMessage(TOAST_MESSAGE.TODO.DELETE_SUCCESS, "success");
@@ -53,7 +53,7 @@ const ToDoList = () => {
 
   useEffect(() => {
     if (deleteState) {
-      mutate({ id: toDoId, authToken });
+      deleteMutate({ id: toDoId, authToken });
       setDeleteState(false);
     }
   }, [deleteState]);
