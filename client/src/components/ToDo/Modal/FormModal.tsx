@@ -1,4 +1,4 @@
-import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "@/components/Loading/LoadingSpinner/LoadingSpinner";
 import useCreateToDo from "@/hooks/query/useCreateToDo";
 import useGetToDoById from "@/hooks/query/useGetToDoById";
 import useGetToDoList from "@/hooks/query/useGetToDoList";
