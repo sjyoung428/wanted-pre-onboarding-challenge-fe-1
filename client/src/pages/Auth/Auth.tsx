@@ -8,6 +8,8 @@ import { EnterFormState, FormType } from "./types";
 import useToastMessage from "@/utils/toast/useToastMessage";
 import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
 import useSignUp from "@/hooks/query/useSignUp";
+import useLogin from "@/hooks/query/useLogin";
+import { AsyncResource } from "async_hooks";
 
 const Auth = () => {
   const [formType, setFormType] = useState<FormType>("login");
@@ -17,9 +19,23 @@ const Auth = () => {
     reset,
     formState: { errors },
   } = useForm<EnterFormState>();
+
   const navigate = useNavigate();
   const { authToken, setToken } = useAuthStore();
 
+  // 로그인
+  const { mutate: loginMutate } = useLogin({
+    onSuccess: (loginResponse) => {
+      setToken("authToken", loginResponse.token);
+      useToastMessage(TOAST_MESSAGE.AUTH.LOGIN_SUCCESS, "success");
+      navigate("/");
+    },
+    onError: () => {
+      useToastMessage(TOAST_MESSAGE.AUTH.INVALID_LOGIN, "error");
+    },
+  });
+
+  // 회원가입
   const { mutate: signUp, isError } = useSignUp({
     onSuccess: () => {
       setFormType("login");
@@ -34,17 +50,7 @@ const Auth = () => {
   const onValid = async ({ email, password }: EnterFormState) => {
     // 로그인
     if (formType === "login") {
-      try {
-        const loginResponse = await AuthAPI.login({ email, password });
-        if (authToken === loginResponse.token) {
-          navigate("/");
-        }
-        setToken("authToken", loginResponse.token);
-        useToastMessage(TOAST_MESSAGE.AUTH.LOGIN_SUCCESS, "success");
-        navigate("/");
-      } catch (error: unknown) {
-        useToastMessage(TOAST_MESSAGE.AUTH.INVALID_LOGIN, "error");
-      }
+      loginMutate({ email, password });
     }
 
     // 회원가입

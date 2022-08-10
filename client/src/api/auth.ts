@@ -7,13 +7,16 @@ export interface AuthResponse {
 }
 
 const AuthAPI = {
-  login: async (body: EnterFormState): Promise<AuthResponse> => {
-    const { data } = await clientApi.post("/users/login", body);
+  login: async ({ email, password }: EnterFormState): Promise<AuthResponse> => {
+    const { data } = await clientApi.post("/users/login", { email, password });
     return data;
   },
 
-  signUp: async (body: EnterFormState): Promise<AuthResponse> => {
-    const { data } = await clientApi.post("/users/create", body);
+  signUp: async ({
+    email,
+    password,
+  }: EnterFormState): Promise<AuthResponse> => {
+    const { data } = await clientApi.post("/users/create", { email, password });
     return data;
   },
 };
