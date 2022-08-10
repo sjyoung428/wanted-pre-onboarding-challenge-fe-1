@@ -1,4 +1,3 @@
-import LoadingSpinner from "@/components/Loading/LoadingSpinner/LoadingSpinner";
 import UpdatedAt from "@/components/UpdatedAt/UpdatedAt";
 import useGetToDoList from "@/hooks/query/useGetToDoList";
 import { useAuthStore } from "@/store/useAuthStore";
@@ -42,7 +41,7 @@ const ToDoList = () => {
   // 투두 리스트 삭제
   const { mutate: deleteMutate } = useDeleteToDo({
     onSuccess: async () => {
-      await queryClient.refetchQueries(useGetToDoList.getKey(authToken)),
+      await queryClient.invalidateQueries(useGetToDoList.getKey(authToken)),
         useToastMessage(TOAST_MESSAGE.TODO.DELETE_SUCCESS, "success");
     },
   });

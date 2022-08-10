@@ -1,7 +1,6 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import AuthAPI from "@/api/auth";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/useAuthStore";
 import { EnterFormState, FormType } from "./types";
@@ -9,7 +8,6 @@ import useToastMessage from "@/utils/toast/useToastMessage";
 import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
 import useSignUp from "@/hooks/query/useSignUp";
 import useLogin from "@/hooks/query/useLogin";
-import { AsyncResource } from "async_hooks";
 
 const Auth = () => {
   const [formType, setFormType] = useState<FormType>("login");

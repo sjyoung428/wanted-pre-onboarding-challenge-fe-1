@@ -33,13 +33,13 @@ const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
   // 투두 생성 커스텀 뮤테이션 훅
   const { mutate: createMutate } = useCreateToDo({
     onSuccess: async () => {
-      await queryClient.refetchQueries(useGetToDoList.getKey(authToken));
+      await queryClient.invalidateQueries(useGetToDoList.getKey(authToken));
     },
   });
   // 투두 업데이트 커스텀 뮤테이션 훅
   const { mutate: updateMutate } = useUpdateToDo({
     onSuccess: async () => {
-      await queryClient.refetchQueries(useGetToDoList.getKey(authToken));
+      await queryClient.invalidateQueries(useGetToDoList.getKey(authToken));
     },
   });
 
