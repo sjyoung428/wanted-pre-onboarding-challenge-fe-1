@@ -1,6 +1,6 @@
 import ToDoAPI from "@/api/toDo";
 import { ToDoMutationState } from "@/components/ToDo/Modal/types";
-import { ToDoData } from "@/types/todo";
+import { ToDoData } from "@/types/toDo";
 import { useMutation, UseMutationOptions } from "react-query";
 
 const useCreateToDo = (

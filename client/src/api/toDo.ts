@@ -3,7 +3,7 @@ import {
   ToDoMutationStateWithId,
 } from "@/components/ToDo/Modal/types";
 import { IdAndToken } from "@/types/auth";
-import { ToDoData } from "@/types/todo";
+import { ToDoData } from "@/types/toDo";
 import clientApi from "./axios";
 
 const ToDoAPI = {

@@ -2,7 +2,7 @@ import useCheckIdByURL from "@/hooks/common/useCheckIdByURL";
 import { Divider, Stack, Typography } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ToDoData } from "@/types/todo";
+import { ToDoData } from "@/types/toDo";
 
 const ToDoDetail = () => {
   const { id, content, title } =
