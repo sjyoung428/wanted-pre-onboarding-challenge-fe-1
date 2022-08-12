@@ -9,7 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import useDeleteToDo from "@/hooks/query/useDeleteToDo";
 import DeleteModal from "../Modal/DeleteModal";
 import { useDeleteModalStore } from "@/store/useDeleteModalStore";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useUpdateToDoStore } from "@/store/useUpdateToDoStore";
 import useCheckIdByURL from "@/hooks/common/useCheckIdByURL";
 import { useFormModalStore } from "@/store/useFormModalStore";
@@ -17,22 +17,32 @@ import ToDoSkeleton from "@/components/Loading/Skeleton/ToDoSkeleton";
 import useToastMessage from "@/utils/toast/useToastMessage";
 import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
 import { useQueryClient } from "react-query";
+import shallow from "zustand/shallow";
 
 const ToDoList = () => {
   const [deleteState, setDeleteState] = useState(false); // 투두를 지우기 위한 state
   const [toDoId, setToDoId] = useState("");
   const queryClient = useQueryClient();
 
-  const { updateMode, setUpdateMode } = useUpdateToDoStore();
-  const openDeleteModal = useDeleteModalStore((state) => state.openModal); // 투두 리스트 지우는 것 확인하는 모달
-  const openFormModal = useFormModalStore((state) => state.openModal); // 업데이트 폼 모달
+  const { updateMode, setUpdateMode } = useUpdateToDoStore(
+    (state) => ({
+      updateMode: state.updateMode,
+      setUpdateMode: state.setUpdateMode,
+    }),
+    shallow
+  );
+  const openDeleteModal = useDeleteModalStore(
+    (state) => state.openModal,
+    shallow
+  ); // 투두 리스트 지우는 것 확인하는 모달
+  const openFormModal = useFormModalStore((state) => state.openModal, shallow); // 업데이트 폼 모달
 
   const checkId = useCheckIdByURL();
 
-  const authToken = useAuthStore((state) => state.authToken);
+  const authToken = useAuthStore((state) => state.authToken, shallow);
 
   // 모든 투두 리스트 가져오기
-  const { data, isLoading } = useGetToDoList(authToken, {
+  const { data: toDoList, isLoading } = useGetToDoList(authToken, {
     onError: () => {
       useToastMessage(TOAST_MESSAGE.AUTH.ONLY_LOGIN, "error");
     },
@@ -80,7 +90,7 @@ const ToDoList = () => {
       >
         {isLoading
           ? [1, 2, 3, 4, 5, 6].map((item) => <ToDoSkeleton key={item} />)
-          : data?.data.map((toDo) => (
+          : toDoList?.data.map((toDo) => (
               <div key={toDo.id}>
                 <Stack
                   flexDirection="column"
