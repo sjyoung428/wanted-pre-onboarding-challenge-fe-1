@@ -1,9 +1,6 @@
 import useDate from "@/hooks/common/useDate";
 import { Typography } from "@mui/material";
-
-interface UpdatedAtProps {
-  updatedAt: string;
-}
+import { UpdatedAtProps } from "./types";
 
 const UpdatedAt = ({ updatedAt }: UpdatedAtProps) => {
   const time = useDate(updatedAt);

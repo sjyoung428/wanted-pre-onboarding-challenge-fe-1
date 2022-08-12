@@ -3,11 +3,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/useAuthStore";
-import { EnterFormState, FormType } from "./types";
+import { FormType } from "./types";
 import useToastMessage from "@/utils/toast/useToastMessage";
 import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
 import useSignUp from "@/hooks/query/useSignUp";
 import useLogin from "@/hooks/query/useLogin";
+import { EnterFormState } from "@/types/auth";
 
 const Auth = () => {
   const [formType, setFormType] = useState<FormType>("login");

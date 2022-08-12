@@ -1,4 +1,5 @@
-import ToDoAPI, { IdAndToken } from "@/api/toDo";
+import ToDoAPI from "@/api/toDo";
+import { IdAndToken } from "@/types/auth";
 import { useMutation, UseMutationOptions } from "react-query";
 
 const useDeleteToDo = (

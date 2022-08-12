@@ -10,3 +10,12 @@ export interface ToDoMutationState extends ModalFormState {
 export interface ToDoMutationStateWithId extends ToDoMutationState {
   id: string;
 }
+
+export interface DeleteModalProps {
+  setDeleteState: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface FormModalProps {
+  updateMode: boolean;
+  id: string;
+}

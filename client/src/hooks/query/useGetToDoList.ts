@@ -1,4 +1,5 @@
-import ToDoAPI, { ToDoData } from "@/api/toDo";
+import ToDoAPI from "@/api/toDo";
+import { ToDoData } from "@/types/todo";
 import { useQuery, UseQueryOptions } from "react-query";
 
 const useGetToDoList = (

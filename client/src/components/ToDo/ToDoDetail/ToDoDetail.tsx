@@ -1,8 +1,8 @@
-import { ToDoData } from "@/api/toDo";
 import useCheckIdByURL from "@/hooks/common/useCheckIdByURL";
 import { Divider, Stack, Typography } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { ToDoData } from "@/types/todo";
 
 const ToDoDetail = () => {
   const { id, content, title } =

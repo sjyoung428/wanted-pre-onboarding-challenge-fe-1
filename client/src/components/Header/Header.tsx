@@ -19,6 +19,7 @@ const Header = () => {
     }
   };
   const homeURL = rootURL || detailURL;
+
   return (
     <>
       <Helmet>
@@ -49,4 +50,4 @@ const Header = () => {
   );
 };
 
-export default React.memo(Header);
+export default Header;

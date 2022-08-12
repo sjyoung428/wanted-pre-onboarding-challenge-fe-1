@@ -1,5 +1,4 @@
 import { Skeleton, Stack } from "@mui/material";
-import React from "react";
 
 const ToDoSkeleton = () => {
   return (

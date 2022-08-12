@@ -1,10 +1,5 @@
-import { EnterFormState } from "@/pages/Auth/types";
+import { AuthResponse, EnterFormState } from "@/types/auth";
 import clientApi from "./axios";
-
-export interface AuthResponse {
-  message: string;
-  token: string;
-}
 
 const AuthAPI = {
   login: async ({ email, password }: EnterFormState): Promise<AuthResponse> => {

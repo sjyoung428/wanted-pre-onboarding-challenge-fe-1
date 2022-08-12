@@ -1,5 +1,5 @@
-import AuthAPI, { AuthResponse } from "@/api/auth";
-import { EnterFormState } from "@/pages/Auth/types";
+import AuthAPI from "@/api/auth";
+import { AuthResponse, EnterFormState } from "@/types/auth";
 import { useMutation, UseMutationOptions } from "react-query";
 
 const useLogin = (

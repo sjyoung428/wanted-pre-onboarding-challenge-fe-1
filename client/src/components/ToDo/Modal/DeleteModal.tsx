@@ -1,9 +1,6 @@
 import { useDeleteModalStore } from "@/store/useDeleteModalStore";
 import { Button, Dialog, DialogTitle, DialogContent } from "@mui/material";
-
-interface DeleteModalProps {
-  setDeleteState: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { DeleteModalProps } from "./types";
 
 const DeleteModal = ({ setDeleteState }: DeleteModalProps) => {
   const { open, closeModal } = useDeleteModalStore();

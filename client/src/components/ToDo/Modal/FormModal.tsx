@@ -15,15 +15,10 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
-import { ModalFormState } from "./types";
+import { FormModalProps, ModalFormState } from "./types";
 import CloseIcon from "@mui/icons-material/Close";
 import useToastMessage from "@/utils/toast/useToastMessage";
 import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
-
-interface FormModalProps {
-  updateMode: boolean;
-  id: string;
-}
 
 const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
   const queryClient = useQueryClient();

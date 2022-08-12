@@ -2,20 +2,9 @@ import {
   ToDoMutationState,
   ToDoMutationStateWithId,
 } from "@/components/ToDo/Modal/types";
+import { IdAndToken } from "@/types/auth";
+import { ToDoData } from "@/types/todo";
 import clientApi from "./axios";
-
-export type ToDoData = {
-  title: string;
-  content: string;
-  id: string;
-  createAt: string;
-  updatedAt: string;
-};
-
-export interface IdAndToken {
-  id: string;
-  authToken: string;
-}
 
 const ToDoAPI = {
   create: async ({

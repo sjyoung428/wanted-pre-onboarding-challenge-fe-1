@@ -1,5 +1,6 @@
-import ToDoAPI, { IdAndToken, ToDoData } from "@/api/toDo";
+import ToDoAPI from "@/api/toDo";
 import { ToDoMutationStateWithId } from "@/components/ToDo/Modal/types";
+import { ToDoData } from "@/types/todo";
 import { useMutation, UseMutationOptions } from "react-query";
 
 const useUpdateToDo = (
