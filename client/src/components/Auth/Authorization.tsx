@@ -10,7 +10,7 @@ import useSignUp from "@/hooks/query/useSignUp";
 import useLogin from "@/hooks/query/useLogin";
 import { EnterFormState } from "@/types/auth";
 
-const Auth = () => {
+const Authorization = () => {
   const [formType, setFormType] = useState<FormType>("login");
   const {
     register,
@@ -128,4 +128,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default Authorization;

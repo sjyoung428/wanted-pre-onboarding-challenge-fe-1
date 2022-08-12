@@ -1,4 +1,4 @@
-import Auth from "@/pages/Auth/Auth";
+import Auth from "@/pages/Auth";
 import Home from "@/pages/Home";
 import ToDoDetail from "@/components/ToDo/ToDoDetail/ToDoDetail";
 import { Route, Routes } from "react-router-dom";
