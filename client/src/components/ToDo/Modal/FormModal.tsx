@@ -57,8 +57,6 @@ const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
     closeModal();
   };
 
-  if (isLoading) return <LoadingSpinner />;
-
   return (
     <>
       <Modal
@@ -94,17 +92,25 @@ const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
           >
             {updateMode ? "ToDo 수정하기" : "ToDo 작성하기"}
           </Typography>
-          <TextField
-            {...register("title")}
-            placeholder={updateMode ? data?.data.title : "제목"}
-          />
-          <TextField
-            {...register("content")}
-            sx={{ mt: 2 }}
-            multiline
-            rows={4}
-            placeholder={updateMode ? data?.data.content : "내용"}
-          />
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <TextField
+              {...register("title")}
+              placeholder={updateMode ? data?.data.title : "제목"}
+            />
+          )}
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <TextField
+              {...register("content")}
+              sx={{ mt: 2 }}
+              multiline
+              rows={4}
+              placeholder={updateMode ? data?.data.content : "내용"}
+            />
+          )}
           <Button sx={{ mt: 2 }} type="submit" variant="contained">
             {updateMode ? "수정하기" : "작성하기"}
           </Button>
