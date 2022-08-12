@@ -1,17 +1,18 @@
 import { Box, Button, TextField } from "@mui/material";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/useAuthStore";
-import { FormType } from "./types";
 import useToastMessage from "@/utils/toast/useToastMessage";
 import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
 import useSignUp from "@/hooks/query/useSignUp";
 import useLogin from "@/hooks/query/useLogin";
 import { EnterFormState } from "@/types/auth";
+import loginOption from "@/utils/options/query/loginOption";
+import signUpOption from "@/utils/options/query/signUpOption";
 
 const Authorization = () => {
-  const [formType, setFormType] = useState<FormType>("login");
+  const { authToken, authFormType, setAuthFormType } = useAuthStore();
+
   const {
     register,
     handleSubmit,
@@ -19,41 +20,21 @@ const Authorization = () => {
     formState: { errors },
   } = useForm<EnterFormState>();
 
-  const navigate = useNavigate();
-  const { authToken, setToken } = useAuthStore();
-
   // 로그인
-  const { mutate: login } = useLogin({
-    onSuccess: (loginResponse) => {
-      setToken("authToken", loginResponse.token);
-      useToastMessage(TOAST_MESSAGE.AUTH.LOGIN_SUCCESS, "success");
-      navigate("/");
-    },
-    onError: () => {
-      useToastMessage(TOAST_MESSAGE.AUTH.INVALID_LOGIN, "error");
-    },
-  });
+  const { mutate: login } = useLogin(loginOption());
 
   // 회원가입
-  const { mutate: signUp, isError } = useSignUp({
-    onSuccess: () => {
-      setFormType("login");
-      useToastMessage(TOAST_MESSAGE.AUTH.REGISTER_SUCCESS, "success");
-    },
-    onError: () => {
-      useToastMessage(TOAST_MESSAGE.AUTH.EXIST_USER, "error");
-    },
-  });
+  const { mutate: signUp, isError } = useSignUp(signUpOption());
 
   // valid
   const onValid = async ({ email, password }: EnterFormState) => {
     // 로그인
-    if (formType === "login") {
+    if (authFormType === "login") {
       login({ email, password });
     }
 
     // 회원가입
-    if (formType === "register") {
+    if (authFormType === "register") {
       signUp({ email, password });
       if (isError) return;
     }
@@ -74,8 +55,8 @@ const Authorization = () => {
 
   const onToggleType = () => {
     reset();
-    if (formType === "login") setFormType("register");
-    if (formType === "register") setFormType("login");
+    if (authFormType === "login") setAuthFormType("register");
+    if (authFormType === "register") setAuthFormType("login");
   };
 
   return (
@@ -118,10 +99,10 @@ const Authorization = () => {
           autoComplete="current-password"
         />
         <Button type="submit" variant="contained">
-          {formType === "login" ? "로그인" : "회원가입"}
+          {authFormType === "login" ? "로그인" : "회원가입"}
         </Button>
         <Button onClick={onToggleType} variant="text">
-          {formType === "login" ? "회원가입하러 가기" : "로그인하러 가기"}
+          {authFormType === "login" ? "회원가입하러 가기" : "로그인하러 가기"}
         </Button>
       </Box>
     </>

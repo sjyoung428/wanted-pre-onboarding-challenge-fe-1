@@ -14,5 +14,7 @@ export const TOAST_MESSAGE = {
   TODO: {
     NOT_ALLOW_EMPTY_STRING: "제목과 내용을 입력해야 합니다.",
     DELETE_SUCCESS: "성공적으로 삭제했습니다.",
+    UPDATE_SUCCESS: "성공적으로 수정했습니다.",
+    CREATE_SUCCESS: "새로운 할 일을 추가했습니다.",
   },
 };

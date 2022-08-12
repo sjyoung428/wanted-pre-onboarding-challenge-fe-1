@@ -23,9 +23,7 @@ const ToDoDetail = () => {
             }}
             divider={<Divider sx={{ marginBottom: "1rem", marginTop: "0" }} />}
           >
-            <Typography mb={1} sx={{}}>
-              할 일
-            </Typography>
+            <Typography mb={1}>할 일</Typography>
             <Typography>{content}</Typography>
           </Stack>
         </>

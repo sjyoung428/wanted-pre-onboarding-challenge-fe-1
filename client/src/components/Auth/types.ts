@@ -1,1 +1,1 @@
-export type FormType = "login" | "register";
+export type AuthFormType = "login" | "register";

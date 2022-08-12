@@ -1,7 +1,6 @@
 import LoadingSpinner from "@/components/Loading/LoadingSpinner/LoadingSpinner";
 import useCreateToDo from "@/hooks/query/useCreateToDo";
 import useGetToDoById from "@/hooks/query/useGetToDoById";
-import useGetToDoList from "@/hooks/query/useGetToDoList";
 import useUpdateToDo from "@/hooks/query/useUpdateToDo";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useFormModalStore } from "@/store/useFormModalStore";
@@ -19,28 +18,24 @@ import { FormModalProps, ModalFormState } from "./types";
 import CloseIcon from "@mui/icons-material/Close";
 import useToastMessage from "@/utils/toast/useToastMessage";
 import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
+import createToDoOption from "@/utils/options/query/createToDoOption";
+import updateToDoOption from "@/utils/options/query/updateToDoOption";
+import getToDoByIdOption from "@/utils/options/query/getToDoByIdOption";
 
 const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
-  const queryClient = useQueryClient();
   const { open, closeModal } = useFormModalStore();
   const { register, handleSubmit, reset } = useForm<ModalFormState>();
   const authToken = useAuthStore((state) => state.authToken);
   // 투두 생성 커스텀 뮤테이션 훅
-  const { mutate: createToDo } = useCreateToDo({
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(useGetToDoList.getKey(authToken));
-    },
-  });
+  const { mutate: createToDo } = useCreateToDo(createToDoOption(authToken));
   // 투두 업데이트 커스텀 뮤테이션 훅
-  const { mutate: updateToDo } = useUpdateToDo({
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(useGetToDoList.getKey(authToken));
-    },
-  });
+  const { mutate: updateToDo } = useUpdateToDo(updateToDoOption(authToken));
 
-  const { data, isLoading } = useGetToDoById(id, authToken, {
-    enabled: updateMode ? true : false,
-  });
+  const { data, isLoading } = useGetToDoById(
+    id,
+    authToken,
+    getToDoByIdOption(updateMode)
+  );
 
   const onValid = async ({ title, content }: ModalFormState) => {
     if (!updateMode) {

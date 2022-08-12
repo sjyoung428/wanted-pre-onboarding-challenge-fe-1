@@ -7,16 +7,15 @@ import FloatingButton from "../../FloatingButton/FloatingButton";
 import ToDoModalForm from "../Modal/FormModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import useDeleteToDo from "@/hooks/query/useDeleteToDo";
-import { useQueryClient } from "react-query";
 import DeleteModal from "../Modal/DeleteModal";
 import { useDeleteModalStore } from "@/store/useDeleteModalStore";
 import { useEffect, useState } from "react";
-import useToastMessage from "@/utils/toast/useToastMessage";
 import { useUpdateToDoStore } from "@/store/useUpdateToDoStore";
 import useCheckIdByURL from "@/hooks/common/useCheckIdByURL";
 import { useFormModalStore } from "@/store/useFormModalStore";
-import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
 import ToDoSkeleton from "@/components/Loading/Skeleton/ToDoSkeleton";
+import getToDoListOption from "@/utils/options/query/getToDoListOption";
+import deleteToDoOption from "@/utils/options/query/deleteToDoOption";
 
 const ToDoList = () => {
   const [deleteState, setDeleteState] = useState(false); // 투두를 지우기 위한 state
@@ -28,23 +27,13 @@ const ToDoList = () => {
 
   const checkId = useCheckIdByURL();
 
-  const queryClient = useQueryClient();
   const authToken = useAuthStore((state) => state.authToken);
 
   // 모든 투두 리스트 가져오기
-  const { data, isLoading } = useGetToDoList(authToken, {
-    onError: (error) => {
-      useToastMessage(TOAST_MESSAGE.AUTH.ONLY_LOGIN, "error");
-    },
-  });
+  const { data, isLoading } = useGetToDoList(authToken, getToDoListOption());
 
   // 투두 리스트 삭제
-  const { mutate: deleteToDo } = useDeleteToDo({
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(useGetToDoList.getKey(authToken)),
-        useToastMessage(TOAST_MESSAGE.TODO.DELETE_SUCCESS, "success");
-    },
-  });
+  const { mutate: deleteToDo } = useDeleteToDo(deleteToDoOption(authToken));
 
   const onDeleteButton = async (id: string) => {
     setToDoId(id);
