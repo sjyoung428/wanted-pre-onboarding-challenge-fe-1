@@ -18,24 +18,31 @@ import { FormModalProps, ModalFormState } from "./types";
 import CloseIcon from "@mui/icons-material/Close";
 import useToastMessage from "@/utils/toast/useToastMessage";
 import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
-import createToDoOption from "@/utils/options/query/createToDoOption";
-import updateToDoOption from "@/utils/options/query/updateToDoOption";
-import getToDoByIdOption from "@/utils/options/query/getToDoByIdOption";
+import useGetToDoList from "@/hooks/query/useGetToDoList";
 
 const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
   const { open, closeModal } = useFormModalStore();
   const { register, handleSubmit, reset } = useForm<ModalFormState>();
   const authToken = useAuthStore((state) => state.authToken);
+  const queryClient = useQueryClient();
   // 투두 생성 커스텀 뮤테이션 훅
-  const { mutate: createToDo } = useCreateToDo(createToDoOption(authToken));
+  const { mutate: createToDo } = useCreateToDo({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(useGetToDoList.getKey(authToken));
+      useToastMessage(TOAST_MESSAGE.TODO.CREATE_SUCCESS, "success");
+    },
+  });
   // 투두 업데이트 커스텀 뮤테이션 훅
-  const { mutate: updateToDo } = useUpdateToDo(updateToDoOption(authToken));
+  const { mutate: updateToDo } = useUpdateToDo({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(useGetToDoList.getKey(authToken));
+      useToastMessage(TOAST_MESSAGE.TODO.UPDATE_SUCCESS, "success");
+    },
+  });
 
-  const { data, isLoading } = useGetToDoById(
-    id,
-    authToken,
-    getToDoByIdOption(updateMode)
-  );
+  const { data, isLoading } = useGetToDoById(id, authToken, {
+    enabled: updateMode ? true : false,
+  });
 
   const onValid = async ({ title, content }: ModalFormState) => {
     if (!updateMode) {

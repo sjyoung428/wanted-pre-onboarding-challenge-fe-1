@@ -7,11 +7,10 @@ import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
 import useSignUp from "@/hooks/query/useSignUp";
 import useLogin from "@/hooks/query/useLogin";
 import { EnterFormState } from "@/types/auth";
-import loginOption from "@/utils/options/query/loginOption";
-import signUpOption from "@/utils/options/query/signUpOption";
 
 const Authorization = () => {
-  const { authToken, authFormType, setAuthFormType } = useAuthStore();
+  const { authToken, authFormType, setToken, setAuthFormType } = useAuthStore();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -21,10 +20,27 @@ const Authorization = () => {
   } = useForm<EnterFormState>();
 
   // 로그인
-  const { mutate: login } = useLogin(loginOption());
+  const { mutate: login } = useLogin({
+    onSuccess: (loginResponse) => {
+      setToken("authToken", loginResponse.token);
+      useToastMessage(TOAST_MESSAGE.AUTH.LOGIN_SUCCESS, "success");
+      navigate("/");
+    },
+    onError: () => {
+      useToastMessage(TOAST_MESSAGE.AUTH.INVALID_LOGIN, "error");
+    },
+  });
 
   // 회원가입
-  const { mutate: signUp, isError } = useSignUp(signUpOption());
+  const { mutate: signUp, isError } = useSignUp({
+    onSuccess: () => {
+      setAuthFormType("login");
+      useToastMessage(TOAST_MESSAGE.AUTH.REGISTER_SUCCESS, "success");
+    },
+    onError: () => {
+      useToastMessage(TOAST_MESSAGE.AUTH.EXIST_USER, "error");
+    },
+  });
 
   // valid
   const onValid = async ({ email, password }: EnterFormState) => {

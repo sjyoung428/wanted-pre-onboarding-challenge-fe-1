@@ -14,12 +14,14 @@ import { useUpdateToDoStore } from "@/store/useUpdateToDoStore";
 import useCheckIdByURL from "@/hooks/common/useCheckIdByURL";
 import { useFormModalStore } from "@/store/useFormModalStore";
 import ToDoSkeleton from "@/components/Loading/Skeleton/ToDoSkeleton";
-import getToDoListOption from "@/utils/options/query/getToDoListOption";
-import deleteToDoOption from "@/utils/options/query/deleteToDoOption";
+import useToastMessage from "@/utils/toast/useToastMessage";
+import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
+import { useQueryClient } from "react-query";
 
 const ToDoList = () => {
   const [deleteState, setDeleteState] = useState(false); // 투두를 지우기 위한 state
   const [toDoId, setToDoId] = useState("");
+  const queryClient = useQueryClient();
 
   const { updateMode, setUpdateMode } = useUpdateToDoStore();
   const openDeleteModal = useDeleteModalStore((state) => state.openModal); // 투두 리스트 지우는 것 확인하는 모달
@@ -30,10 +32,19 @@ const ToDoList = () => {
   const authToken = useAuthStore((state) => state.authToken);
 
   // 모든 투두 리스트 가져오기
-  const { data, isLoading } = useGetToDoList(authToken, getToDoListOption());
+  const { data, isLoading } = useGetToDoList(authToken, {
+    onError: () => {
+      useToastMessage(TOAST_MESSAGE.AUTH.ONLY_LOGIN, "error");
+    },
+  });
 
   // 투두 리스트 삭제
-  const { mutate: deleteToDo } = useDeleteToDo(deleteToDoOption(authToken));
+  const { mutate: deleteToDo } = useDeleteToDo({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(useGetToDoList.getKey(authToken)),
+        useToastMessage(TOAST_MESSAGE.TODO.DELETE_SUCCESS, "success");
+    },
+  });
 
   const onDeleteButton = async (id: string) => {
     setToDoId(id);
