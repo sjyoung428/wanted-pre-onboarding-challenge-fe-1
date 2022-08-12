@@ -17,4 +17,4 @@ export const TOAST_MESSAGE = {
     UPDATE_SUCCESS: "성공적으로 수정했습니다.",
     CREATE_SUCCESS: "새로운 할 일을 추가했습니다.",
   },
-};
+} as const;
