@@ -8,9 +8,10 @@ import { ToastContainer } from "react-toastify";
 import Header from "../Header/Header";
 import { S } from "./styled";
 import { LayoutProps } from "./types";
+import shallow from "zustand/shallow";
 
 const Layout = ({ children }: LayoutProps) => {
-  const authToken = useAuthStore((state) => state.authToken);
+  const authToken = useAuthStore((state) => state.authToken, shallow);
   const navigate = useNavigate();
   const authUrl = useMatch("/auth");
   useEffect(() => {

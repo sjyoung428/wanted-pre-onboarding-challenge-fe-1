@@ -4,9 +4,13 @@ import { Link, useMatch } from "react-router-dom";
 import { S } from "./styled";
 import useToastMessage from "@/utils/toast/useToastMessage";
 import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
+import shallow from "zustand/shallow";
 
 const Header = () => {
-  const { authToken, removeToken } = useAuthStore();
+  const { authToken, removeToken } = useAuthStore(
+    (state) => ({ authToken: state.authToken, removeToken: state.removeToken }),
+    shallow
+  );
   const rootURL = useMatch("/");
   const detailURL = useMatch("/todos/:id");
   const authURL = useMatch("/auth");

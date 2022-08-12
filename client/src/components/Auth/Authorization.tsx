@@ -7,9 +7,18 @@ import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
 import useSignUp from "@/hooks/query/useSignUp";
 import useLogin from "@/hooks/query/useLogin";
 import { EnterFormState } from "@/types/auth";
+import shallow from "zustand/shallow";
 
 const Authorization = () => {
-  const { authToken, authFormType, setToken, setAuthFormType } = useAuthStore();
+  const { authToken, authFormType, setToken, setAuthFormType } = useAuthStore(
+    (state) => ({
+      authToken: state.authToken,
+      authFormType: state.authFormType,
+      setToken: state.setToken,
+      setAuthFormType: state.setAuthFormType,
+    }),
+    shallow
+  );
   const navigate = useNavigate();
 
   const {
