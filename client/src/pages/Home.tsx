@@ -1,4 +1,5 @@
 import AsyncBoundary from "@/components/Boundary/AsyncBoundary";
+import ToDoListError from "@/components/Error/ToDoListError";
 import ToDoSkeleton from "@/components/Loading/Skeleton/ToDoSkeleton";
 import ToDoList from "@/components/ToDo/ToDoList/ToDoList";
 import { Divider, Stack } from "@mui/material";
@@ -22,7 +23,7 @@ const Home = () => {
         }}
       >
         <AsyncBoundary
-          errorFallback={<span>에러</span>}
+          errorFallback={<ToDoListError />}
           loadingFallback={[1, 2, 3, 4, 5, 6].map((item) => (
             <ToDoSkeleton key={item} />
           ))}
