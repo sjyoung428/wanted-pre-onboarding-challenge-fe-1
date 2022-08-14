@@ -1,6 +1,5 @@
 import useDate from "@/hooks/common/useDate";
 import { Typography } from "@mui/material";
-import React from "react";
 import { UpdatedAtProps } from "./types";
 
 const UpdatedAt = ({ updatedAt }: UpdatedAtProps) => {
@@ -17,4 +16,4 @@ const UpdatedAt = ({ updatedAt }: UpdatedAtProps) => {
   );
 };
 
-export default React.memo(UpdatedAt);
+export default UpdatedAt;
