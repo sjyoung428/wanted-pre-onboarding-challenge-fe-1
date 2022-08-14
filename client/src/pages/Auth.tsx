@@ -1,4 +1,4 @@
-import Authorization from "@/components/Auth/Authorization";
+import AuthorForm from "@/components/Auth/AuthForm";
 import { Helmet } from "react-helmet-async";
 
 const Auth = () => {
@@ -7,7 +7,7 @@ const Auth = () => {
       <Helmet>
         <title>사용자 인증</title>
       </Helmet>
-      <Authorization />
+      <AuthorForm />
     </>
   );
 };

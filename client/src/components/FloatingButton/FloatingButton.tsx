@@ -1,12 +1,12 @@
 import { Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useFormModalStore } from "@/store/useFormModalStore";
-import { useUpdateToDoStore } from "@/store/useUpdateToDoStore";
+import { useToDoStore } from "@/store/useToDoStore";
 import shallow from "zustand/shallow";
 
 const FloatingButton = () => {
   const openModal = useFormModalStore((state) => state.openModal, shallow);
-  const { setUpdateMode } = useUpdateToDoStore(
+  const { setUpdateMode } = useToDoStore(
     (state) => ({ setUpdateMode: state.setUpdateMode }),
     shallow
   );
