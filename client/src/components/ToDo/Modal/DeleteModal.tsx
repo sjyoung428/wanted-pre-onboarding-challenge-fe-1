@@ -1,13 +1,20 @@
 import { useDeleteModalStore } from "@/store/useDeleteModalStore";
+import { useToDoStore } from "@/store/useToDoStore";
 import { Button, Dialog, DialogTitle, DialogContent } from "@mui/material";
-import { DeleteModalProps } from "./types";
+import shallow from "zustand/shallow";
 
-const DeleteModal = ({ setDeleteState }: DeleteModalProps) => {
-  const { open, closeModal } = useDeleteModalStore();
+const DeleteModal = () => {
+  const { open, closeModal } = useDeleteModalStore(
+    (state) => ({ open: state.open, closeModal: state.closeModal }),
+    shallow
+  );
+  const { setClickedDelete } = useToDoStore((state) => ({
+    setClickedDelete: state.setClickedDelete,
+  }));
 
   const setDelete = () => {
     closeModal();
-    setDeleteState(true);
+    setClickedDelete(true);
   };
 
   return (

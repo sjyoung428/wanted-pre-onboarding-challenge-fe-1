@@ -4,7 +4,7 @@ export interface AuthResponse {
 }
 
 export interface IdAndToken {
-  id: string;
+  toDoId: string;
   authToken: string;
 }
 

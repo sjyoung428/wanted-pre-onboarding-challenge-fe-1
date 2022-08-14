@@ -14,16 +14,26 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
-import { FormModalProps, ModalFormState } from "./types";
+import { ModalFormState } from "./types";
 import CloseIcon from "@mui/icons-material/Close";
 import useToastMessage from "@/utils/toast/useToastMessage";
 import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
 import useGetToDoList from "@/hooks/query/useGetToDoList";
+import { useToDoStore } from "@/store/useToDoStore";
+import shallow from "zustand/shallow";
 
-const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
+const ToDoModalForm = () => {
   const { open, closeModal } = useFormModalStore();
+  const { authToken } = useAuthStore(
+    (state) => ({ authToken: state.authToken }),
+    shallow
+  );
+  const { updateMode, toDoId } = useToDoStore(
+    (state) => ({ updateMode: state.updateMode, toDoId: state.toDoId }),
+    shallow
+  );
+
   const { register, handleSubmit, reset } = useForm<ModalFormState>();
-  const authToken = useAuthStore((state) => state.authToken);
   const queryClient = useQueryClient();
   // 투두 생성 커스텀 뮤테이션 훅
   const { mutate: createToDo } = useCreateToDo({
@@ -40,7 +50,7 @@ const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
     },
   });
 
-  const { data, isLoading } = useGetToDoById(id, authToken, {
+  const { data, isLoading } = useGetToDoById(toDoId, authToken, {
     enabled: updateMode ? true : false,
   });
 
@@ -58,7 +68,7 @@ const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
         useToastMessage(TOAST_MESSAGE.TODO.NOT_ALLOW_EMPTY_STRING, "error");
         return;
       }
-      updateToDo({ id, title, content, authToken });
+      updateToDo({ toDoId, title, content, authToken });
     }
     reset();
     closeModal();
@@ -104,7 +114,7 @@ const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
           ) : (
             <TextField
               {...register("title")}
-              placeholder={updateMode ? data?.data.title : "제목"}
+              placeholder={updateMode ? data?.data?.title : "제목"}
             />
           )}
           {isLoading ? (
@@ -115,7 +125,7 @@ const ToDoModalForm = ({ updateMode, id }: FormModalProps) => {
               sx={{ mt: 2 }}
               multiline
               rows={4}
-              placeholder={updateMode ? data?.data.content : "내용"}
+              placeholder={updateMode ? data?.data?.content : "내용"}
             />
           )}
           <Button sx={{ mt: 2 }} type="submit" variant="contained">
