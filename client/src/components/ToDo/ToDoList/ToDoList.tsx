@@ -6,7 +6,7 @@ import { Link, Outlet } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import useDeleteToDo from "@/hooks/query/useDeleteToDo";
 import { useDeleteModalStore } from "@/store/useDeleteModalStore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useToDoStore } from "@/store/useToDoStore";
 import useCheckIdByURL from "@/hooks/common/useCheckIdByURL";
 import { useFormModalStore } from "@/store/useFormModalStore";
@@ -40,7 +40,7 @@ const ToDoList = () => {
   const authToken = useAuthStore((state) => state.authToken, shallow);
 
   // 모든 투두 리스트 가져오기
-  const { data: toDoList, isLoading } = useGetToDoList(authToken, {
+  const { data: toDoList } = useGetToDoList(authToken, {
     onError: () => {
       useToastMessage(TOAST_MESSAGE.AUTH.ONLY_LOGIN, "error");
     },
