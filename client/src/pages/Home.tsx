@@ -1,8 +1,6 @@
-import AsyncBoundary from "@/components/Boundary/AsyncBoundary";
-import ToDoListError from "@/components/Error/ToDoListError";
 import ToDoSkeleton from "@/components/Loading/Skeleton/ToDoSkeleton";
 import ToDoList from "@/components/ToDo/ToDoList/ToDoList";
-import { Divider, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 
@@ -22,14 +20,13 @@ const Home = () => {
           borderRadius: "5px",
         }}
       >
-        <AsyncBoundary
-          errorFallback={<ToDoListError />}
-          loadingFallback={[1, 2, 3, 4, 5, 6].map((item) => (
+        <Suspense
+          fallback={[1, 2, 3, 4, 5, 6].map((item) => (
             <ToDoSkeleton key={item} />
           ))}
         >
           <ToDoList />
-        </AsyncBoundary>
+        </Suspense>
       </Stack>
     </>
   );

@@ -1,4 +1,4 @@
-import { ReactNode, Suspense, memo } from "react";
+import { ReactNode, Suspense } from "react";
 import ErrorBoundary from "./ErrorBoundary";
 
 interface Props {
@@ -15,6 +15,6 @@ const AsyncBoundary = ({ loadingFallback, errorFallback, children }: Props) => {
   );
 };
 
-export default memo(AsyncBoundary);
+export default AsyncBoundary;
 
 // 참고: https://jbee.io/react/error-declarative-handling-1/#usage

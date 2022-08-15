@@ -41,9 +41,9 @@ const ToDoList = () => {
 
   // 모든 투두 리스트 가져오기
   const { data: toDoList } = useGetToDoList(authToken, {
-    // onError: () => {
-    //   useToastMessage(TOAST_MESSAGE.AUTH.ONLY_LOGIN, "error");
-    // },
+    onError: () => {
+      useToastMessage(TOAST_MESSAGE.AUTH.ONLY_LOGIN, "error");
+    },
   });
 
   // 투두 리스트 삭제
