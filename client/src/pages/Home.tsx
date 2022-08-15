@@ -1,8 +1,9 @@
 import ToDoSkeleton from "@/components/Loading/Skeleton/ToDoSkeleton";
-import ToDoList from "@/components/ToDo/ToDoList/ToDoList";
+// import ToDoList from "@/components/ToDo/ToDoList/ToDoList";
 import { Stack } from "@mui/material";
-import { Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
+const ToDoList = lazy(() => import("@/components/ToDo/ToDoList/ToDoList"));
 
 const Home = () => {
   return (
