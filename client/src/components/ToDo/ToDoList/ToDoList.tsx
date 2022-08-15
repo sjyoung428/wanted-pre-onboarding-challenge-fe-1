@@ -72,7 +72,6 @@ const ToDoList = () => {
     setToDoId(toDoId);
     openFormModal();
   };
-
   return (
     <>
       {toDoList?.data.map((toDo) => (

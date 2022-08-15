@@ -1,6 +1,6 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/useAuthStore";
 import useToastMessage from "@/utils/toast/useToastMessage";
 import { TOAST_MESSAGE } from "@/utils/toast/toastMessage";
@@ -9,8 +9,8 @@ import useLogin from "@/hooks/query/useLogin";
 import { EnterFormState } from "@/types/auth";
 import shallow from "zustand/shallow";
 
-const Authorization = () => {
-  const { authToken, authFormType, setToken, setAuthFormType } = useAuthStore(
+const AuthForm = () => {
+  const { authFormType, setToken, setAuthFormType } = useAuthStore(
     (state) => ({
       authToken: state.authToken,
       authFormType: state.authFormType,
@@ -83,10 +83,8 @@ const Authorization = () => {
     if (authFormType === "login") setAuthFormType("register");
     if (authFormType === "register") setAuthFormType("login");
   };
-
   return (
     <>
-      {authToken && <Navigate to="/" replace />}
       <Box
         component="form"
         sx={{ display: "flex", flexDirection: "column" }}
@@ -134,4 +132,4 @@ const Authorization = () => {
   );
 };
 
-export default Authorization;
+export default AuthForm;
