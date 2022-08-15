@@ -1,7 +1,7 @@
 import { AuthFormType } from "@/components/Auth/types";
-import { getLocalStorage } from "@/utils/getLocalStorage";
-import { removeLocalStorage } from "@/utils/removeLocalStorage";
-import { setLocalStorage } from "@/utils/setLocalStorage";
+import { getLocalStorage } from "@/utils/LocalStorage/getLocalStorage";
+import { removeLocalStorage } from "@/utils/LocalStorage/removeLocalStorage";
+import { setLocalStorage } from "@/utils/LocalStorage/setLocalStorage";
 import create from "zustand";
 
 interface AuthState {
