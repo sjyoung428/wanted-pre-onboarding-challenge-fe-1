@@ -12,7 +12,6 @@ import shallow from "zustand/shallow";
 const AuthForm = () => {
   const { authFormType, setToken, setAuthFormType } = useAuthStore(
     (state) => ({
-      authToken: state.authToken,
       authFormType: state.authFormType,
       setToken: state.setToken,
       setAuthFormType: state.setAuthFormType,
