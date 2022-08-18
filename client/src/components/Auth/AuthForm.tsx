@@ -9,6 +9,7 @@ import useLogin from "@/hooks/query/useLogin";
 import { EnterFormState } from "@/types/auth";
 import shallow from "zustand/shallow";
 import { ErrorMessage } from "@hookform/error-message";
+import AuthErrorMessage from "../Error/AuthErrorMessage";
 
 const AuthForm = () => {
   const { authFormType, setToken, setAuthFormType } = useAuthStore(
@@ -89,7 +90,7 @@ const AuthForm = () => {
     <>
       <Box
         component="form"
-        sx={{ display: "flex", flexDirection: "column" }}
+        sx={{ display: "flex", flexDirection: "column", maxWidth: "223px" }}
         onSubmit={handleSubmit(onValid, onInValid)}
       >
         <TextField
@@ -110,11 +111,7 @@ const AuthForm = () => {
         <ErrorMessage
           errors={authErrors}
           name="email"
-          render={({ message }) => (
-            <span style={{ color: "red", marginBottom: "0.5rem" }}>
-              {message}
-            </span>
-          )}
+          render={({ message }) => <AuthErrorMessage message={message} />}
         />
         <TextField
           sx={{
@@ -135,11 +132,7 @@ const AuthForm = () => {
         <ErrorMessage
           errors={authErrors}
           name="password"
-          render={({ message }) => (
-            <span style={{ color: "red", marginBottom: "0.5rem" }}>
-              {message}
-            </span> // 컴포넌트 분리 할 것
-          )}
+          render={({ message }) => <AuthErrorMessage message={message} />}
         />
         <Button type="submit" variant="contained">
           {authFormType === "login" ? "로그인" : "회원가입"}
