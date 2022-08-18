@@ -25,7 +25,7 @@ const AuthForm = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors: authErrors },
   } = useForm<EnterFormState>({
     mode: "onChange",
   });
@@ -68,7 +68,7 @@ const AuthForm = () => {
   };
   // invalid
   const onInValid = () => {
-    const { email, password } = errors;
+    const { email, password } = authErrors;
 
     // email 에러 메세지
     if (email && email.message) {
@@ -108,7 +108,7 @@ const AuthForm = () => {
           variant="outlined"
         />
         <ErrorMessage
-          errors={errors}
+          errors={authErrors}
           name="email"
           render={({ message }) => (
             <span style={{ color: "red", marginBottom: "0.5rem" }}>
@@ -133,12 +133,12 @@ const AuthForm = () => {
           autoComplete="current-password"
         />
         <ErrorMessage
-          errors={errors}
+          errors={authErrors}
           name="password"
           render={({ message }) => (
             <span style={{ color: "red", marginBottom: "0.5rem" }}>
               {message}
-            </span>
+            </span> // 컴포넌트 분리 할 것
           )}
         />
         <Button type="submit" variant="contained">
