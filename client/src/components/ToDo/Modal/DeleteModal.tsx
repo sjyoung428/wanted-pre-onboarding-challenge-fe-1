@@ -8,9 +8,12 @@ const DeleteModal = () => {
     (state) => ({ open: state.open, closeModal: state.closeModal }),
     shallow
   );
-  const { setClickedDelete } = useToDoStore((state) => ({
-    setClickedDelete: state.setClickedDelete,
-  }));
+  const { setClickedDelete } = useToDoStore(
+    (state) => ({
+      setClickedDelete: state.setClickedDelete,
+    }),
+    shallow
+  );
 
   const setDelete = () => {
     closeModal();

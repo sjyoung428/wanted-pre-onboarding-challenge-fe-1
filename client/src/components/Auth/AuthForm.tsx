@@ -8,6 +8,7 @@ import useSignUp from "@/hooks/query/useSignUp";
 import useLogin from "@/hooks/query/useLogin";
 import { EnterFormState } from "@/types/auth";
 import shallow from "zustand/shallow";
+import { ErrorMessage } from "@hookform/error-message";
 
 const AuthForm = () => {
   const { authFormType, setToken, setAuthFormType } = useAuthStore(
@@ -25,7 +26,9 @@ const AuthForm = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<EnterFormState>();
+  } = useForm<EnterFormState>({
+    mode: "onChange",
+  });
 
   // 로그인
   const { mutate: login } = useLogin({
@@ -104,6 +107,15 @@ const AuthForm = () => {
           label="Email"
           variant="outlined"
         />
+        <ErrorMessage
+          errors={errors}
+          name="email"
+          render={({ message }) => (
+            <span style={{ color: "red", marginBottom: "0.5rem" }}>
+              {message}
+            </span>
+          )}
+        />
         <TextField
           sx={{
             marginBottom: "0.5rem",
@@ -119,6 +131,15 @@ const AuthForm = () => {
           label="Password"
           type="password"
           autoComplete="current-password"
+        />
+        <ErrorMessage
+          errors={errors}
+          name="password"
+          render={({ message }) => (
+            <span style={{ color: "red", marginBottom: "0.5rem" }}>
+              {message}
+            </span>
+          )}
         />
         <Button type="submit" variant="contained">
           {authFormType === "login" ? "로그인" : "회원가입"}
