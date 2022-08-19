@@ -1,20 +1,45 @@
 # Tech Stack
 
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+<!-- ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
 ![Zustand](https://img.shields.io/badge/zustand-%2320232a.svg?style=for-the-badge&logo=zustand&logoColor=%2361DAFB)
-![Mui](https://img.shields.io/badge/mui-%2320232a.svg?style=for-the-badge&logo=mui&logoColor=%2361DAFB)
+![Mui](https://img.shields.io/badge/mui-%2320232a.svg?style=for-the-badge&logo=mui&logoColor=%2361DAFB) -->
+
+# 실행 방법
+
+## 설치 및 환경세팅
+
+```bash
+git clone https://github.com/sjyoung428/wanted-pre-onboarding-challenge-fe-1.git
+yarn
+```
+
+## 실행
+
+client
+
+```bash
+cd client
+yarn dev // port: 3000
+```
+
+server
+
+```bash
+cd server
+yarn start // port: 8080
+```
 
 # 실행 화면
 
 ## Auth
 
-![auth](https://user-images.githubusercontent.com/77968955/183245397-2df522a1-ec70-497e-bbcb-4a8ed31877fe.gif)
+![auth](https://user-images.githubusercontent.com/77968955/185590747-ec2fc0b1-c6f3-4a4d-b3dd-b46afc2da819.gif)
 
 ## ToDoList
 
-![todo](https://user-images.githubusercontent.com/77968955/183245537-1bb5b68b-6edc-4899-9994-aa6c2d89b97b.gif)
+![todo](https://user-images.githubusercontent.com/77968955/185590758-c228c8c1-4851-4a96-b877-9dbb6ddea14f.gif)
 
 <hr/>
 
@@ -47,46 +72,174 @@
 
   - [x] 수정되는 Todo의 내용이 목록에서도 실시간으로 반영되어야 합니다
 
-## 느낀점
-
-- 이번 챌린지를 하면서 비대해진 컴포넌트들을 보고 나중에 내가 이 코드를 다시 봤을 때 문제없이 읽어나갈 수 있을까에 대한 물음에
-
-  확신이 들지 않아 지속적인 리팩토링을 통해 컴포넌트를 작게 나누고 가독성을 높이려고 노력하고 있지만 쉽지 않다.
-
-  기능을 구현할 때 그저 손이 가는대로 코딩을 해서 구현했는데 그렇게 하다보니 더 힘들어 지는 것 같아서 앞으로는 어떻게 만들어야
-
-  리팩토링 또는 다른 기능 추가를 할 때 더 쉽게 할 수 있는지에 대한 고민을 해보고 코딩을 해야겠다는 생각이 들었다.
-
-- 타입 관리를 할 때 재사용되는 타입들만 export로 사용할지 아니면 모든 타입들을 types폴더를 만들어서 그 폴더에서 관리를
-
-  해야 좋을지 고민이다.
-
   <br/>
 
-# Week 1-1
+# 사용한 라이브러리
 
-## 스켈레톤UI 적용
+```json
+// client/package.json
+{
+  "name": "wanted-pre-onboarding-challenge-fe-1",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@hookform/error-message": "^2.0.0",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/material": "^5.9.2", // mui를 이용하여 빠르고 간단한 UI 생성
+    "axios": "^0.27.2",
+    "emotion-reset": "^3.0.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-helmet-async": "^1.3.0", // 동적으로 title 변경
+    "react-hook-form": "^7.34.0", // 여러개의 input을 한 번에 관리 하기 위한 라이브러리
+    "react-query": "^3.39.0", // server state 관리
+    "react-router-dom": "^6.3.0",
+    "react-toastify": "^9.0.7", // 토스트 메세지를 보여주기위한 라이브러리
+    "zustand": "^4.0.0" // client state 관리
+  },
+  "devDependencies": {
+    "@types/node": "^18.6.2",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^1.3.0",
+    "typescript": "^4.6.3",
+    "vite": "^2.9.9"
+  }
+}
+```
 
-![image](https://user-images.githubusercontent.com/77968955/184298200-db928eeb-0817-4886-a083-ba5d842a3c36.gif)
+# 폴더 구조
 
-## 보다 좁은 타입 적용
+- 여러 의미가 있어 혼란을 주는 폴더 이름 혹은 파일 이름을 사용하지 않도록 했고, 관심사에 따라 최대한 분리할 수 있도록 노력했습니다.
 
-|                                                                                                                 |                                                                                                                 |
-| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| ![image](https://user-images.githubusercontent.com/77968955/184297593-23f86c35-d771-4330-a602-9a54847471a3.png) | ![image](https://user-images.githubusercontent.com/77968955/184297549-963f2057-8c35-470a-85b9-9c5041f1b7a4.png) |
+  - **api** : axios 인스턴스 및 api에 관련한 폴더 입니다.
+  - **components** : 어플리케이션을 구성하는 컴포넌트를 위한 폴더입니다.
+  - **config** : 설정을 위한 폴더입니다.
+  - **hooks** : 커스텀 훅들을 위한 폴더입니다.
+  - **pages** : 라우팅되는 페이지들을 위한 폴더입니다.
+  - **router** : 라우팅을 위한 폴더입니다.
+  - **store** : client 상태 관리를 위한 폴더입니다.
+  - **styles** : global style 및 반복적으로 사용되는 스타일을 위한 폴더입니다.
+  - **types** : 여러 곳에서 사용되는 타입을 위한 폴더입니다.
+  - **utils** : 유틸리티를 위한 폴더입니다.
 
-## Auth부분 최적화 진행
+## 트리
 
-|                                                                                                                      |                                                                                                                     |
-| -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| ![authbefore](https://user-images.githubusercontent.com/77968955/184339339-25dce388-c9bb-468a-a7fe-8da453627561.gif) | ![authAfter](https://user-images.githubusercontent.com/77968955/184339347-f4a85522-fc4b-4c5e-b1dd-87bfaf5534cc.gif) |
-|                                                                                                                      |
+```
+// client
+.
+|-- README.md
+|-- index.html
+|-- package-lock.json
+|-- package.json
+|-- public
+|   `-- favicon.ico
+|-- src
+|   |-- App.tsx
+|   |-- api
+|   |   |-- auth.ts
+|   |   |-- axios.ts
+|   |   `-- toDo.ts
+|   |-- components
+|   |   |-- Auth
+|   |   |   |-- AuthForm.tsx
+|   |   |   `-- types.ts
+|   |   |-- Boundary
+|   |   |   |-- AsyncBoundary.tsx
+|   |   |   `-- ErrorBoundary.tsx
+|   |   |-- Error
+|   |   |   |-- AuthErrorMessage.tsx
+|   |   |   `-- ToDoListError.tsx
+|   |   |-- FloatingButton
+|   |   |   `-- FloatingButton.tsx
+|   |   |-- Header
+|   |   |   |-- Header.tsx
+|   |   |   `-- styled.ts
+|   |   |-- Layout
+|   |   |   |-- Layout.tsx
+|   |   |   |-- styled.ts
+|   |   |   `-- types.ts
+|   |   |-- Loading
+|   |   |   |-- LoadingSpinner
+|   |   |   |   `-- LoadingSpinner.tsx
+|   |   |   `-- Skeleton
+|   |   |       `-- ToDoSkeleton.tsx
+|   |   |-- ProtectRoute
+|   |   |   |-- ProtectAuth.tsx
+|   |   |   |-- ProtectHome.tsx
+|   |   |   `-- types.ts
+|   |   |-- ToDo
+|   |   |   |-- Modal
+|   |   |   |   |-- DeleteModal.tsx
+|   |   |   |   |-- FormModal.tsx
+|   |   |   |   `-- types.ts
+|   |   |   |-- ToDoDetail
+|   |   |   |   `-- ToDoDetail.tsx
+|   |   |   `-- ToDoList
+|   |   |       `-- ToDoList.tsx
+|   |   `-- UpdatedAt
+|   |       |-- UpdatedAt.tsx
+|   |       `-- types.ts
+|   |-- config
+|   |   `-- properties.ts
+|   |-- hooks
+|   |   |-- common
+|   |   |   |-- useCheckIdByURL.ts
+|   |   |   `-- useDate.ts
+|   |   `-- query
+|   |       |-- useCreateToDo.ts
+|   |       |-- useDeleteToDo.ts
+|   |       |-- useGetToDoById.ts
+|   |       |-- useGetToDoList.ts
+|   |       |-- useLogin.ts
+|   |       |-- useSignUp.ts
+|   |       `-- useUpdateToDo.ts
+|   |-- main.tsx
+|   |-- pages
+|   |   |-- Auth.tsx
+|   |   `-- Home.tsx
+|   |-- router
+|   |   `-- router.tsx
+|   |-- store
+|   |   |-- useAuthStore.ts
+|   |   |-- useDeleteModalStore.ts
+|   |   |-- useFormModalStore.ts
+|   |   `-- useToDoStore.ts
+|   |-- styles
+|   |   |-- flex.ts
+|   |   `-- global.tsx
+|   |-- types
+|   |   |-- auth.ts
+|   |   `-- toDo.ts
+|   |-- utils
+|   |   |-- LocalStorage
+|   |   |   |-- getLocalStorage.ts
+|   |   |   |-- removeLocalStorage.ts
+|   |   |   `-- setLocalStorage.ts
+|   |   `-- toast
+|   |       |-- toastMessage.ts
+|   |       `-- useToastMessage.ts
+|   `-- vite-env.d.ts
+|-- tsconfig.json
+|-- tsconfig.node.json
+|-- vite.config.ts
+|-- yarn-error.log
+`-- yarn.lock
+```
 
-- [참고링크](https://velog.io/@tkaqhcjstk/zustand-%EC%B5%9C%EC%A0%81%ED%99%94-%EB%B0%A9%EB%B2%95)
+# 과제 진행 시 주안점
 
-## 느낀점 및 개선할 점
+- 수 개월 뒤에 이 코드를 보더라도 무리없이 코드를 읽어 나갈 수 있을지에 대해 생각하면서
+  코드의 가독성에 주안점을 두고 코드를 작성하고 지속적인 리팩토링을 했습니다.
 
-- 이번 수업을 통해 어떤 식으로 코드를 짜고 리팩토링을 진행해야 하는지 감을 잡은 것 같다.
-- 최적화에 대한 질문에 대해 멘토님께서 프로파일러로 체크해보라고 하셨는데 확인해보니 불필요한 렌더링이 너무 많이 발생하는 것을 알게 되었다.
-  지금은 어디서 부터 손을 대야 할지 감이 안잡히지만 이 부분은 좀 더 고민해보고 공부해서 개선해야 되는 부분이다(진행 중).
-- 무조건적인 분리는 가독성을 오히려 해칠 수 있다. 그러므로 어떠한 함수가 의존적이라면 의존하는 부분을 적어주는 것이 더 좋다.
+# 한계점 및 개선 사항
+
+- 코드 최적화에 대해 좀 더 공부하고 개선해 나가야 합니다.
+- AsyncBoundary를 만들어 Suspense와 에러에 관련된 사항을 한 번에 처리 하려 했지만, 여러 번 렌더링되는 현상을 해결하지 못해 따로 처리했습니다.
