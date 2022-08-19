@@ -19,16 +19,20 @@ yarn
 
 client
 
+- port: 3000
+
 ```bash
 cd client
-yarn dev // port: 3000
+yarn dev
 ```
 
 server
 
+- port: 8080
+
 ```bash
 cd server
-yarn start // port: 8080
+yarn start
 ```
 
 # 실행 화면
