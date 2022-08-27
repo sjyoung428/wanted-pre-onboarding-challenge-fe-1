@@ -1,4 +1,5 @@
 import create from "zustand";
+import { devtools } from "zustand/middleware";
 
 interface ToDoState {
   updateMode: boolean;
@@ -12,18 +13,20 @@ interface ToDoAction {
   setToDoId: (id: string) => void;
 }
 
-export const useToDoStore = create<ToDoState & ToDoAction>((set) => ({
-  // state
-  updateMode: false,
-  clickedDelete: false,
-  toDoId: "",
+export const useToDoStore = create<ToDoState & ToDoAction>()(
+  devtools((set) => ({
+    // state
+    updateMode: false,
+    clickedDelete: false,
+    toDoId: "",
 
-  // action
-  setUpdateMode: (updateMode) => {
-    set(() => ({ updateMode }));
-  },
-  setClickedDelete: (clickedDelete) => {
-    set(() => ({ clickedDelete }));
-  },
-  setToDoId: (toDoId) => set(() => ({ toDoId })),
-}));
+    // action
+    setUpdateMode: (updateMode) => {
+      set(() => ({ updateMode }));
+    },
+    setClickedDelete: (clickedDelete) => {
+      set(() => ({ clickedDelete }));
+    },
+    setToDoId: (toDoId) => set(() => ({ toDoId })),
+  }))
+);
