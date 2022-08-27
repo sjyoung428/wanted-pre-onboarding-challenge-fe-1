@@ -1,7 +1,4 @@
 import { AuthFormType } from "@/components/Auth/types";
-import { getLocalStorage } from "@/utils/LocalStorage/getLocalStorage";
-import { removeLocalStorage } from "@/utils/LocalStorage/removeLocalStorage";
-import { setLocalStorage } from "@/utils/LocalStorage/setLocalStorage";
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 interface AuthState {
@@ -11,8 +8,8 @@ interface AuthState {
 
 interface AuthAction {
   setAuthFormType: (formType: AuthFormType) => void;
-  setToken: (keyname: string, authToken: string) => void;
-  removeToken: (keyname: string) => void;
+  setToken: (authToken: string) => void;
+  removeToken: () => void;
 }
 
 export const useAuthStore = create<AuthState & AuthAction>()(
@@ -21,7 +18,6 @@ export const useAuthStore = create<AuthState & AuthAction>()(
       (set) => ({
         // state
         authFormType: "login",
-        // authToken: getLocalStorage<string>("authToken") || "",
         authToken: "",
 
         // action
@@ -29,13 +25,11 @@ export const useAuthStore = create<AuthState & AuthAction>()(
           set(() => ({ authFormType: formType }));
         },
 
-        setToken: (keyname, authToken) => {
+        setToken: (authToken) => {
           set(() => ({ authToken }));
-          // setLocalStorage(keyname, authToken);
         },
-        removeToken: (keyname) => {
+        removeToken: () => {
           set(() => ({ authToken: "" }));
-          // removeLocalStorage(keyname);
         },
       }),
       {

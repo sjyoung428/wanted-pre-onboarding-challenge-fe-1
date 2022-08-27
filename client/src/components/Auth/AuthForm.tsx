@@ -34,7 +34,7 @@ const AuthForm = () => {
   // 로그인
   const { mutate: login } = useLogin({
     onSuccess: (loginResponse) => {
-      setToken("authToken", loginResponse.token);
+      setToken(loginResponse.token);
       useToastMessage(TOAST_MESSAGE.AUTH.LOGIN_SUCCESS, "success");
       navigate("/");
     },
